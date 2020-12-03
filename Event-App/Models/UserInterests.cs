@@ -15,6 +15,7 @@ namespace Event_App.Models
         [ForeignKey("IdentityUser")]
         public string IdentityUserId { get; set; }
         public IdentityUser identityUser { get; set; }
+        [ForeignKey("InterestId")]
         public int InterestId { get; set; }
     }
 }
