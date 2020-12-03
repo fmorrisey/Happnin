@@ -4,14 +4,16 @@ using Event_App.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Event_App.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201203201706_Init")]
+    partial class Init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,22 +50,22 @@ namespace Event_App.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "ad4a99b4-63c5-43bf-b97a-0ce2b6360e66",
-                            ConcurrencyStamp = "ccaf72dc-c287-4ca4-9d86-ec476698c209",
+                            Id = "dc9d9e9a-01cc-4ffc-8768-c6c69f317901",
+                            ConcurrencyStamp = "632f47aa-4204-4d8b-ae9c-a29c8e9a5df2",
                             Name = "Person",
                             NormalizedName = "PERSON"
                         },
                         new
                         {
-                            Id = "de4732a5-b59d-43f8-9cd1-e1d8b97cd2ea",
-                            ConcurrencyStamp = "94d5de85-6290-4277-9831-b20c2c2f5082",
+                            Id = "3406ad93-586a-4166-9dff-7b40c9085074",
+                            ConcurrencyStamp = "946ba6ca-fc13-4fe3-8ad6-6eb81dd97678",
                             Name = "Group",
                             NormalizedName = "GROUP"
                         },
                         new
                         {
-                            Id = "2c5a5bb3-fd45-4f04-bc3f-50b3a7c85070",
-                            ConcurrencyStamp = "a1de9156-4dd7-440f-83f6-32946cc1aa81",
+                            Id = "f6b75ce8-5572-4ed2-9218-91c119b5bac1",
+                            ConcurrencyStamp = "bd7f3e7d-d50e-4054-9ac3-edcad2c4111d",
                             Name = "Venue",
                             NormalizedName = "VENUE"
                         });
@@ -185,10 +187,12 @@ namespace Event_App.Data.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(128)")
+                        .HasMaxLength(128);
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(128)")
+                        .HasMaxLength(128);
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -225,10 +229,12 @@ namespace Event_App.Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(128)")
+                        .HasMaxLength(128);
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(128)")
+                        .HasMaxLength(128);
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
