@@ -33,7 +33,32 @@ namespace Event_App.Data
                 Name = "Venue",
                 NormalizedName = "VENUE"
             }
-            ) ;
+            );
+
+            builder.Entity<Day>()
+              .HasData(
+              new Day
+              {
+                  Id = 1,
+                  WeekDay = "Monday"
+              }, new Day
+              {
+                  Id = 2,
+                  WeekDay = "Tuesday"
+              }, new Day
+              {
+                  Id = 3,
+                  WeekDay = "Wednesday"
+              }, new Day
+              {
+                  Id = 4,
+                  WeekDay = "Thursday"
+              }, new Day
+              {
+                  Id = 5,
+                  WeekDay = "Friday"
+              });
+
         }
 
     }

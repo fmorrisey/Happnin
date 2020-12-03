@@ -4,7 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace TrashCollectorWebApp.Services
+namespace Event_App.Services
 {
     public static class DateAndTime
     {

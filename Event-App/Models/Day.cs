@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace TrashCollectorWebApp.Models.Calendar
+namespace Event_App.Models.Calendar
 {
     public class Day
     {
