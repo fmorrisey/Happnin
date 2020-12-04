@@ -11,6 +11,9 @@ namespace Event_App.Models
         [Key]
         public int AddressId { get; set; }
 
+        [Display (Name = "Venue Name ")]
+        public string Venue { get; set; }
+
         public int Street { get; set; }
 
         public string City { get; set; }
@@ -20,5 +23,9 @@ namespace Event_App.Models
         [DataType(DataType.PostalCode)]
         [Display(Name = "Zip Code")]
         public int ZipCode { get; set; }
+
+        public string Lattitude { get; set; }
+        public string Longitude { get; set; }
+
     }
 }

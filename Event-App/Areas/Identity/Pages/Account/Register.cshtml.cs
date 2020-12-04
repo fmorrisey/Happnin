@@ -39,12 +39,13 @@ namespace Event_App.Areas.Identity.Pages.Account
             _logger = logger;
             _emailSender = emailSender;
             _roleManager = roleManager;
+
         }
 
         [BindProperty]
         public InputModel Input { get; set; }
-
         public SelectList Roles { get; set; }
+
 
         public string ReturnUrl { get; set; }
 
@@ -67,7 +68,6 @@ namespace Event_App.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
-
             [Required]
             public string Role { get; set; }
         }
@@ -90,7 +90,6 @@ namespace Event_App.Areas.Identity.Pages.Account
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
-
                     if (await _roleManager.RoleExistsAsync(Input.Role))
                     {
                         await _userManager.AddToRoleAsync(user, Input.Role);
