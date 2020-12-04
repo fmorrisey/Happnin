@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Event_App.Models;
 
 namespace Event_App.Data
 {
@@ -14,6 +15,7 @@ namespace Event_App.Data
         {
 
         }
+        public DbSet<Event_App.Models.Person> Person { get; set; }
 
     }
 }
