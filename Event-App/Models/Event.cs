@@ -20,7 +20,7 @@ namespace Event_App.Models
         public int IdentityUserId { get; set; }
 
         [ForeignKey("Address")]
-        public string AddressId { get; set; }
+        public string Venue { get; set; }
 
         [Display(Name = "Event Type")]
         public string EventType { get; set; }
