@@ -1,4 +1,3 @@
-using Event_App.ActionFilter;
 using Event_App.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -38,11 +37,6 @@ namespace Event_App
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultUI()
                 .AddDefaultTokenProviders();
-            services.AddScoped<ClaimsPrincipal>(s => s.GetService<IHttpContextAccessor>().HttpContext.User);
-            services.AddControllers(config =>
-            {
-                config.Filters.Add(typeof(GlobalRouting));
-            });
 
 
             services.AddControllersWithViews();
