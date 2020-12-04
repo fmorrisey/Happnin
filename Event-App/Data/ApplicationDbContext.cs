@@ -16,26 +16,6 @@ namespace Event_App.Data
         }
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            base.OnModelCreating(builder);
-            builder.Entity<IdentityRole>()
-            .HasData(
-            new IdentityRole
-            {
-                Name = "Person",
-                NormalizedName = "PERSON"
-            },
-            new IdentityRole
-            {
-                Name = "Group",
-                NormalizedName = "GROUP"
-            },
-            new IdentityRole
-            {
-                Name = "Venue",
-                NormalizedName = "VENUE"
-            }
-            );
-
             builder.Entity<Day>()
               .HasData(
               new Day
