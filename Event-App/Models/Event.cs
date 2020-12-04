@@ -38,5 +38,8 @@ namespace Event_App.Models
 
         public string City { get; set; }
 
+
+
+
     }
 }
