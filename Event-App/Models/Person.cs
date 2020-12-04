@@ -12,13 +12,32 @@ namespace Event_App.Models
     {
 
         [Key]
-        public int Id { get; set; }
-        public string FirstName { get; set;}
-        public string LastName { get; set;}
-        
+        public int PersonId { get; set; }
+
         [ForeignKey("IdentityUser")]
         public string IdentityUserId { get; set; }
-        public IdentityUser identityUser { get; set; }
+        public IdentityUser IdentityUser { get; set; }
+
+        [Required]
+        [StringLength(50, ErrorMessage = "First name cannot be longer than 50 characters.")]
+        [Column("FirstName")]
+        [Display(Name = "First Name")]
+        public string FirstName { get; set; }
+
+        [Required]
+        [StringLength(50)]
+        [Display(Name = "Last Name")]
+        public string LastName { get; set; }
+
+
+        [Display(Name = "Full Name")]
+        public string FullName
+        {
+            get
+            {
+                return FirstName + " " + LastName;
+            }
+        }
 
     }
 }
