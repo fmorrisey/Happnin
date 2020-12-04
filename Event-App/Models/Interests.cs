@@ -10,6 +10,7 @@ namespace Event_App.Models
     {
         [Key]
         int InterestId { get; set; }
+
         [Display(Name = "Interest Description")]
         string InterestType { get; set; }
 
