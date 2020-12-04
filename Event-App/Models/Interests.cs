@@ -9,9 +9,10 @@ namespace Event_App.Models
     public class Interests
     {
         [Key]
-        int InterestId { get; set; }
+        public int InterestId { get; set; }
+
         [Display(Name = "Interest Description")]
-        string InterestType { get; set; }
+        public string InterestType { get; set; }
 
     }
 }

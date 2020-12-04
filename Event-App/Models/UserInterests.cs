@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Event_App.Models
 {
-    public class UserIntrests
+    public class UserInterests
     {
 
         [Key]
@@ -17,11 +17,9 @@ namespace Event_App.Models
         public Person person { get; set; }
 
         [Key]
-        [ForeignKey("IntrestId")]
-        public int IntrestId { get; set; }
-        public Interests interests { get; set; }
-
-
-
+        [ForeignKey("InterestId")]
+        public int InterestId { get; set; }
+        public Interests Interests { get; set; }
+       
     }
 }
