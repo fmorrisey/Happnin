@@ -18,14 +18,8 @@ namespace Event_App.Models
 
         [Key]
         [ForeignKey("InterestId")]
-        public int IntrestId { get; set; }
-<<<<<<< HEAD
+        public int InterestId { get; set; }
         public Interests Interests { get; set; }
-=======
-        public Interests interests { get; set; }
->>>>>>> a31b681bc3699d1bdc76b2cc0892833d007d71a1
-
-
-
+       
     }
 }
