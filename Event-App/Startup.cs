@@ -37,10 +37,12 @@ namespace Event_App
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultUI()
                 .AddDefaultTokenProviders();
+            
+            services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
-
-            services.AddControllersWithViews();
-            services.AddRazorPages();
+            //Removed to allow faster Frontend changes
+            //services.AddControllersWithViews();
+            //services.AddRazorPages();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
