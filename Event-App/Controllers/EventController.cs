@@ -10,11 +10,11 @@ using Event_App.Models;
 
 namespace Event_App.Controllers
 {
-    public class EventsController : Controller
+    public class EventController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public EventsController(ApplicationDbContext context)
+        public EventController(ApplicationDbContext context)
         {
             _context = context;
         }
