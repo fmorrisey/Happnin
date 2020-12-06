@@ -60,6 +60,15 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
   display: block;
 }
 
+/*CUSTOME CSS*/
+
+.box {
+    border: 3px solid transparent;
+    box-shadow: 0 .25rem .75rem rgba(0, 0, .2, .2);
+    border: 1px dashed;
+    margin-bottom: 10px;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";

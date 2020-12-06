@@ -6,78 +6,86 @@
 }
 
 <h1>Home</h1>
-
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-
-
-
-<div class="container">
-
-    <div class="col-6">
-        <form asp-action="Index" method="get">
-            <div class="form-actions no-color">
-                <p>
-                    Find by Event: <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
-                    <input type="submit" value="Search" class="btn-secondary" /> |
-                    @*<a asp-action="Index">New Search</a>*@
-                </p>
-                @* Add drop down here! *@
-                @*<select asp-for="Intrests" class="form-control" asp-items='new SelectList(Model.Intrests, "Id", "Intrests")'></select>*@
-            </div>
-        </form>
-        @foreach (var item in Model)
-        {
-            <div class="card-body" style="border: 1px dashed">
-                <div class="row">
-                    <div class="col-4">
-                        <div>
-                            @Html.DisplayFor(modelItem => item.EventDate)
+<div class="row">
+    <div class="col-md-6">
+        <div class="row">
+            <form asp-action="Index" method="get">
+                <div class="form-actions no-color">
+                    <p>
+                        Find Event: <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
+                        <input type="submit" value="Search" class="btn-secondary" /> |
+                        @*<a asp-action="Index">New Search</a>*@
+                    </p>
+                    @* Add drop down here! *@
+                    @*<select asp-for="Intrests" class="form-control" asp-items='new SelectList(Model.Intrests, "Id", "Intrests")'></select>*@
+                </div>
+            </form>
+            @foreach (var item in Model)
+            {
+                <div class="card-body bg-light w-88 box">
+                    <div class="row">
+                        <div class="col-4">
+                            <div>
+                                <p class="card-text">@Html.DisplayFor(modelItem => item.EventDate)</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-8">
-                        <div>
-                            <p>@Html.DisplayFor(modelItem => item.InterestId)</p>
-                            <p>
-                                <a asp-action="Details" asp-route-id="@item.EventId">
-                                    @Html.DisplayFor(modelItem => item.EventName)
-                                </a>
+                        <div class="col-8">
+                            <div>
+                                <p class="card-text">@Html.DisplayFor(modelItem => item.InterestId)</p>
+                                <h5 class="card-header-pills">
+                                    <a asp-action="Details" asp-route-id="@item.EventId">
+                                        @Html.DisplayFor(modelItem => item.EventName)
+                                    </a>
+                                </h5>
+                                <p class="card-text">
+                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-geo-alt-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                                    </svg>
+                                </p>
 
-                            <p> @Html.DisplayFor(modelItem => item.Venue)</p>
-                            @if (item.IsVirtual == true)
-                            {
-                                @Html.DisplayFor(modelItem => item.IsVirtual)
-                                @*Replace w conditional icons*@
-                            }
-                            @if (item.IsPrivate == true)
-                            {
-                                @Html.DisplayFor(modelItem => item.IsPrivate)
-                                @*Replace w conditional icons*@
-                            }
+                                </p>@Html.DisplayFor(modelItem => item.Venue)
+
+
+                                @if (item.IsVirtual == true)
+                                {
+                                    @Html.DisplayFor(modelItem => item.IsVirtual)
+                                    @*Replace w conditional icons*@
+                                }
+                                @if (item.IsPrivate == true)
+                                {
+                                    @Html.DisplayFor(modelItem => item.IsPrivate)
+                                    @*Replace w conditional icons*@
+                                }
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-
-
-        }
+                <br />
+            }
+        </div>
     </div>
-    <div class="col-md-6">
-        <div id="map" style="height: 100%; width: 100%;">
+
+    
+    <div class="col-md-6">@* Make the maps responsive later *@
+        <div class="box" id="map" style="height: 100%; width: 100%;">
             <script>
                 var map;
                 var marker;
                 function initMap() {
-
+                
                     map = new google.maps.Map(document.getElementById("map"), {
                         zoom: 14,
-                        center: { lat: @*@Model.Latitude, lng: @Model.Longitude*@ },
+                        center: { lat: 43.039172, lng: -87.899492 },
                         map: map
                     });
 
+                    //create a foreach loop to add mutiple markers to the map with lables
+                    // https://developers.google.com/maps/documentation/javascript/examples
                     marker = new google.maps.Marker({
-                        position:{ lat: @*@Model.Latitude, lng: @Model.Longitude*@ },
+                        position: { lat: 43.039172, lng: -87.899492 },
                         map: map
                     });
                 }
@@ -87,4 +95,5 @@
                     async defer></script>
         </div>
     </div>
+   
 </div>
