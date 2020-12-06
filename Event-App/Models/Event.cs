@@ -12,7 +12,6 @@ namespace Event_App.Models
         [Key]
         public int EventId { get; set; }
 
-
         [ForeignKey("Interest")]
         public int InterestId { get; set; }
 
@@ -25,9 +24,8 @@ namespace Event_App.Models
         [Display(Name = "Event Type")]
         public string EventType { get; set; }
 
-
         [Display(Name = "Event Date")]
-        [DisplayFormat(DataFormatString = "{0:MM-dd-yyyy", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:MMMM dd ddd h:mm t}", ApplyFormatInEditMode = true)]
         public DateTime? EventDate { get; set; }
 
         public string EventDescription { get; set; }
