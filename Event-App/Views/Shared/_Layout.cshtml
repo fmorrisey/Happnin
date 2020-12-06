@@ -12,7 +12,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3" style="background-color: #eb6864;">
             <div class="container">
-                <a class="navbar-brand justify-content-lg-center" asp-area="" asp-controller="Event" asp-action="Index">Happnin</a>
+                <h4><a class="navbar-brand justify-content-lg-center" asp-area="" asp-controller="Event" asp-action="Index">Happnin</a></h4>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="true" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -24,8 +24,11 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Event" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                    </li>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Person" asp-action="Discover">Discover</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Person" asp-action="Freinds">Schedule</a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -40,7 +43,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="d-flex justify-content-center"">
-            &copy; 2020 - Evento / Happnin - <a asp-area="" asp-controller="Event" asp-action="Index">Home</a>
+            &copy; 2020 - Evento / Happnin - &nbsp; <a asp-area="" asp-controller="Event" asp-action="Index">Home</a>
         </div>
     </footer>
    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
