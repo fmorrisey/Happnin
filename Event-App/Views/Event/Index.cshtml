@@ -34,66 +34,75 @@
                         </div>
                         <div class="col-8">
                             <div>
-                                <p class="card-text">@Html.DisplayFor(modelItem => item.InterestId)</p>
+                                <p class="card-text"></p>
                                 <h5 class="card-header-pills">
                                     <a asp-action="Details" asp-route-id="@item.EventId">
                                         @Html.DisplayFor(modelItem => item.EventName)
                                     </a>
                                 </h5>
-                                <p class="card-text">
-                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-geo-alt-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
-                                    </svg>
-                                </p>
 
-                                </p>@Html.DisplayFor(modelItem => item.Venue)
-
-
+                                @if (item.IsVirtual == false)
+                                {
+                                    <p class="card-text">
+                                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-geo-alt-fill" fill="#eb6864" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                                        </svg>
+                                        @Html.DisplayFor(modelItem => item.Venue)
+                                    </p>
+                                }
                                 @if (item.IsVirtual == true)
                                 {
-                                    @Html.DisplayFor(modelItem => item.IsVirtual)
-                                    @*Replace w conditional icons*@
+                                    <p class="card-text">
+                                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-geo-alt-fill" fill="#eb6864" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                                        </svg>
+                                        @Html.DisplayFor(modelItem => item.Venue)
+                                    </p>
                                 }
                                 @if (item.IsPrivate == true)
                                 {
-                                    @Html.DisplayFor(modelItem => item.IsPrivate)
-                                    @*Replace w conditional icons*@
+                                    <p class="card-text">
+                                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-envelope-fill" fill="#eb6864" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555zM0 4.697v7.104l5.803-3.558L0 4.697zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757zm3.436-.586L16 11.801V4.697l-5.803 3.546z" />
+                                        </svg>
+                                        @Html.DisplayFor(modelItem => item.Venue)
+                                    </p>
                                 }
                             </div>
                         </div>
                     </div>
                 </div>
-                <br />
             }
         </div>
     </div>
 
-    
-    <div class="col-md-6">@* Make the maps responsive later *@
-        <div class="box" id="map" style="height: 100%; width: 100%;">
-            <script>
-                var map;
-                var marker;
-                function initMap() {
-                
-                    map = new google.maps.Map(document.getElementById("map"), {
-                        zoom: 14,
-                        center: { lat: 43.039172, lng: -87.899492 },
-                        map: map
-                    });
 
-                    //create a foreach loop to add mutiple markers to the map with lables
-                    // https://developers.google.com/maps/documentation/javascript/examples
-                    marker = new google.maps.Marker({
-                        position: { lat: 43.039172, lng: -87.899492 },
-                        map: map
-                    });
-                }
-            </script>
+    <div class="col-md-6">
+        @* Make the maps responsive later *@
+    <div class="box" id="map" style="height: 100%; width: 100%;">
+        <script>
+            var map;
+            var marker;
+            function initMap() {
 
-            <script src="https://maps.googleapis.com/maps/api/js?key=@ViewData["APIkey"]&callback=initMap"
-                    async defer></script>
-        </div>
+                map = new google.maps.Map(document.getElementById("map"), {
+                    zoom: 14,
+                    center: { lat: 43.039172, lng: -87.899492 },
+                    map: map
+                });
+
+                //create a foreach loop to add mutiple markers to the map with lables
+                // https://developers.google.com/maps/documentation/javascript/examples
+                marker = new google.maps.Marker({
+                    position: { lat: 43.039172, lng: -87.899492 },
+                    map: map
+                });
+            }
+        </script>
+
+        <script src="https://maps.googleapis.com/maps/api/js?key=@ViewData["APIkey"]&callback=initMap"
+                async defer></script>
     </div>
-   
+</div>
+
 </div>
