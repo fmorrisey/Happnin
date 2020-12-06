@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h1>Delete</h1>
@@ -12,16 +13,16 @@
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.InterestId)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.InterestId)
-        </dd>
-        <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.IdentityUserId)
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.IdentityUserId)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.EventName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.EventName)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Venue)
@@ -30,10 +31,10 @@
             @Html.DisplayFor(model => model.Venue)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.EventType)
+            @Html.DisplayNameFor(model => model.InterestId)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.EventType)
+            @Html.DisplayFor(model => model.InterestId)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.EventDate)
@@ -58,12 +59,6 @@
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.IsVirtual)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.City)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.City)
         </dd>
     </dl>
     

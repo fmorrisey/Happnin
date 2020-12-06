@@ -10,22 +10,22 @@ using Event_App.Models;
 
 namespace Event_App.Controllers
 {
-    public class EventController : Controller
+    public class EventsController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public EventController(ApplicationDbContext context)
+        public EventsController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Event
+        // GET: Events
         public async Task<IActionResult> Index()
         {
             return View(await _context.Event.ToListAsync());
         }
 
-        // GET: Event/Details/5
+        // GET: Events/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -43,18 +43,18 @@ namespace Event_App.Controllers
             return View(@event);
         }
 
-        // GET: Event/Create
+        // GET: Events/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Event/Create
+        // POST: Events/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("EventId,InterestId,IdentityUserId,Venue,EventType,EventDate,EventDescription,IsPrivate,IsVirtual,City")] Event @event)
+        public async Task<IActionResult> Create([Bind("EventId,IdentityUserId,EventName,Venue,InterestId,EventDate,EventDescription,IsPrivate,IsVirtual")] Event @event)
         {
             if (ModelState.IsValid)
             {
@@ -65,7 +65,7 @@ namespace Event_App.Controllers
             return View(@event);
         }
 
-        // GET: Event/Edit/5
+        // GET: Events/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -81,12 +81,12 @@ namespace Event_App.Controllers
             return View(@event);
         }
 
-        // POST: Event/Edit/5
+        // POST: Events/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("EventId,InterestId,IdentityUserId,Venue,EventType,EventDate,EventDescription,IsPrivate,IsVirtual,City")] Event @event)
+        public async Task<IActionResult> Edit(int id, [Bind("EventId,IdentityUserId,EventName,Venue,InterestId,EventDate,EventDescription,IsPrivate,IsVirtual")] Event @event)
         {
             if (id != @event.EventId)
             {
@@ -116,7 +116,7 @@ namespace Event_App.Controllers
             return View(@event);
         }
 
-        // GET: Event/Delete/5
+        // GET: Events/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -134,7 +134,7 @@ namespace Event_App.Controllers
             return View(@event);
         }
 
-        // POST: Event/Delete/5
+        // POST: Events/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

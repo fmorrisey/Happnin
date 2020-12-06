@@ -11,21 +11,18 @@ namespace Event_App.Models
     {
         [Key]
         public int EventId { get; set; }
-                
-        [ForeignKey("Interest")]
-        public int InterestId { get; set; }
 
         [ForeignKey("IdentityUser")]
         public int IdentityUserId { get; set; }
 
+        [Display(Name = "Event Name")]
+        public string EventName { get; set; }
+
         [ForeignKey("Address")]
         public string Venue { get; set; }
 
-        [Display(Name = "Event Name")]
-        public string EventName { get; set; }
-        
-        [Display(Name = "Event Type")]
-        public string EventType { get; set; }
+        [ForeignKey("Interest")]
+        public int InterestId { get; set; }
 
         [Display(Name = "Event Date")]
         [DisplayFormat(DataFormatString = "{0:MMMM dd ddd h:mm t}", ApplyFormatInEditMode = true)]
@@ -37,11 +34,6 @@ namespace Event_App.Models
         public bool IsPrivate { get; set; }
 
         public bool IsVirtual { get; set; }
-
-        public string City { get; set; }
-
-
-
 
     }
 }

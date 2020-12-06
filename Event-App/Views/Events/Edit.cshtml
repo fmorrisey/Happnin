@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h1>Edit</h1>
@@ -14,14 +15,14 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="EventId" />
             <div class="form-group">
-                <label asp-for="InterestId" class="control-label"></label>
-                <input asp-for="InterestId" class="form-control" />
-                <span asp-validation-for="InterestId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="IdentityUserId" class="control-label"></label>
                 <input asp-for="IdentityUserId" class="form-control" />
                 <span asp-validation-for="IdentityUserId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EventName" class="control-label"></label>
+                <input asp-for="EventName" class="form-control" />
+                <span asp-validation-for="EventName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Venue" class="control-label"></label>
@@ -29,9 +30,9 @@
                 <span asp-validation-for="Venue" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="EventType" class="control-label"></label>
-                <input asp-for="EventType" class="form-control" />
-                <span asp-validation-for="EventType" class="text-danger"></span>
+                <label asp-for="InterestId" class="control-label"></label>
+                <input asp-for="InterestId" class="form-control" />
+                <span asp-validation-for="InterestId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="EventDate" class="control-label"></label>
@@ -52,11 +53,6 @@
                 <label class="form-check-label">
                     <input class="form-check-input" asp-for="IsVirtual" /> @Html.DisplayNameFor(model => model.IsVirtual)
                 </label>
-            </div>
-            <div class="form-group">
-                <label asp-for="City" class="control-label"></label>
-                <input asp-for="City" class="form-control" />
-                <span asp-validation-for="City" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

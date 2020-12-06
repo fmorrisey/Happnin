@@ -26,16 +26,13 @@ namespace Event_App.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime?>("EventDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("EventDescription")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("EventType")
+                    b.Property<string>("EventName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("IdentityUserId")
@@ -115,8 +112,8 @@ namespace Event_App.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "6631a0f6-a86c-40eb-b29a-653a2921af8b",
-                            ConcurrencyStamp = "2e8e2fe5-06ed-43e7-8d78-278daabbab0a",
+                            Id = "143f26ec-5eec-4a16-9a28-424f64abdda7",
+                            ConcurrencyStamp = "af3feea0-3a32-42c5-8e84-0278d71a3788",
                             Name = "Person",
                             NormalizedName = "PERSON"
                         });
