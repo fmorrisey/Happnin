@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Event_App.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201204211623_initialDBbuild")]
-    partial class initialDBbuild
+    [Migration("20201206172421_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,45 @@ namespace Event_App.Migrations
                 .HasAnnotation("ProductVersion", "3.1.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("Event_App.Models.Event", b =>
+                {
+                    b.Property<int>("EventId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("EventDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("EventDescription")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EventType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("IdentityUserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("InterestId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsPrivate")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsVirtual")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Venue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("EventId");
+
+                    b.ToTable("Event");
+                });
 
             modelBuilder.Entity("Event_App.Models.Person", b =>
                 {
@@ -78,8 +117,8 @@ namespace Event_App.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "00fe41f5-bbde-485c-99ef-0e32cfa64269",
-                            ConcurrencyStamp = "0fb47a77-e60f-4e95-9a78-7c87ae86af56",
+                            Id = "6631a0f6-a86c-40eb-b29a-653a2921af8b",
+                            ConcurrencyStamp = "2e8e2fe5-06ed-43e7-8d78-278daabbab0a",
                             Name = "Person",
                             NormalizedName = "PERSON"
                         });

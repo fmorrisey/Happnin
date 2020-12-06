@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Event_App.Migrations
 {
-    public partial class initialDBbuild : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -44,6 +44,27 @@ namespace Event_App.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Event",
+                columns: table => new
+                {
+                    EventId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    InterestId = table.Column<int>(nullable: false),
+                    IdentityUserId = table.Column<int>(nullable: false),
+                    Venue = table.Column<string>(nullable: true),
+                    EventType = table.Column<string>(nullable: true),
+                    EventDate = table.Column<DateTime>(nullable: true),
+                    EventDescription = table.Column<string>(nullable: true),
+                    IsPrivate = table.Column<bool>(nullable: false),
+                    IsVirtual = table.Column<bool>(nullable: false),
+                    City = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Event", x => x.EventId);
                 });
 
             migrationBuilder.CreateTable(
@@ -176,7 +197,7 @@ namespace Event_App.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "00fe41f5-bbde-485c-99ef-0e32cfa64269", "0fb47a77-e60f-4e95-9a78-7c87ae86af56", "Person", "PERSON" });
+                values: new object[] { "6631a0f6-a86c-40eb-b29a-653a2921af8b", "2e8e2fe5-06ed-43e7-8d78-278daabbab0a", "Person", "PERSON" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -239,6 +260,9 @@ namespace Event_App.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "Event");
 
             migrationBuilder.DropTable(
                 name: "Person");

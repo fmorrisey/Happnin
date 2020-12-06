@@ -69,7 +69,8 @@ namespace Event_App
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    // Changed controller to event 
+                    pattern: "{controller=Event}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
         }
