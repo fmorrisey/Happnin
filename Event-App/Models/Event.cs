@@ -25,7 +25,7 @@ namespace Event_App.Models
         public int InterestId { get; set; }
 
         [Display(Name = "Event Date")]
-        [DisplayFormat(DataFormatString = "{0:MMMM dd ddd h:mm t}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:MMMM dd ddd h:mm tt}", ApplyFormatInEditMode = true)]
         public DateTime? EventDate { get; set; }
 
         [Display(Name = "Event Description")]

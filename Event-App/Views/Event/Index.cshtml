@@ -5,55 +5,86 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1>Home</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
 </p>
 
+
+
 <div class="container">
-    <div class="row">
-        <div class="col-6">
-            <table class="table">
-                <tbody>
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.IdentityUserId)
-                            </td>
-                            <td>
+
+    <div class="col-6">
+        <form asp-action="Index" method="get">
+            <div class="form-actions no-color">
+                <p>
+                    Find by Event: <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
+                    <input type="submit" value="Search" class="btn-secondary" /> |
+                    @*<a asp-action="Index">New Search</a>*@
+                </p>
+                @* Add drop down here! *@
+                @*<select asp-for="Intrests" class="form-control" asp-items='new SelectList(Model.Intrests, "Id", "Intrests")'></select>*@
+            </div>
+        </form>
+        @foreach (var item in Model)
+        {
+            <div class="card-body" style="border: 1px dashed">
+                <div class="row">
+                    <div class="col-4">
+                        <div>
+                            @Html.DisplayFor(modelItem => item.EventDate)
+                        </div>
+                    </div>
+                    <div class="col-8">
+                        <div>
+                            <p>@Html.DisplayFor(modelItem => item.InterestId)</p>
+                            <p>
                                 <a asp-action="Details" asp-route-id="@item.EventId">
-                                @Html.DisplayFor(modelItem => item.EventName)</a>
-                                
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Venue)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.InterestId)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.EventDate)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.EventDescription)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.IsPrivate)
-                            </td>
-                            <td>
+                                    @Html.DisplayFor(modelItem => item.EventName)
+                                </a>
+
+                            <p> @Html.DisplayFor(modelItem => item.Venue)</p>
+                            @if (item.IsVirtual == true)
+                            {
                                 @Html.DisplayFor(modelItem => item.IsVirtual)
-                            </td>
-                            <td> @* These will be moved to the details page and only viewable during login *@
-                                <a asp-action="Edit" asp-route-id="@item.EventId">Edit</a> |
-                                 |
-                                <a asp-action="Delete" asp-route-id="@item.EventId">Delete</a>
-                            </td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+                                @*Replace w conditional icons*@
+                            }
+                            @if (item.IsPrivate == true)
+                            {
+                                @Html.DisplayFor(modelItem => item.IsPrivate)
+                                @*Replace w conditional icons*@
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        }
+    </div>
+    <div class="col-md-6">
+        <div id="map" style="height: 100%; width: 100%;">
+            <script>
+                var map;
+                var marker;
+                function initMap() {
+
+                    map = new google.maps.Map(document.getElementById("map"), {
+                        zoom: 14,
+                        center: { lat: @*@Model.Latitude, lng: @Model.Longitude*@ },
+                        map: map
+                    });
+
+                    marker = new google.maps.Marker({
+                        position:{ lat: @*@Model.Latitude, lng: @Model.Longitude*@ },
+                        map: map
+                    });
+                }
+            </script>
+
+            <script src="https://maps.googleapis.com/maps/api/js?key=@ViewData["APIkey"]&callback=initMap"
+                    async defer></script>
         </div>
     </div>
 </div>
