@@ -11,7 +11,7 @@
 </p>
 <div class="row">
     <div class="col-md-6">
-        <div class="row">
+        
             <form asp-action="Index" method="get">
                 <div class="form-actions no-color">
                     <p>
@@ -29,12 +29,13 @@
                     <div class="row">
                         <div class="col-4">
                             <div>
-                                <p class="card-text">@Html.DisplayFor(modelItem => item.EventDate)</p>
+                                <p class="">@item.EventDate.Value.ToString("MMMM dd")<br />
+                                @item.EventDate.Value.ToString("dddd h:mm tt")</p>
                             </div>
                         </div>
                         <div class="col-8">
                             <div>
-                                <p class="card-text"></p>
+                                <p class="card-text">@Html.DisplayFor(modelItem => item.InterestId)</p>
                                 <h5 class="card-header-pills">
                                     <a asp-action="Details" asp-route-id="@item.EventId">
                                         @Html.DisplayFor(modelItem => item.EventName)
@@ -73,7 +74,7 @@
                     </div>
                 </div>
             }
-        </div>
+        
     </div>
 
 
