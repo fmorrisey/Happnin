@@ -1,0 +1,59 @@
+﻿@model IEnumerable<Event_App.Models.Event>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            <table class="table">
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IdentityUserId)
+                            </td>
+                            <td>
+                                <a asp-action="Details" asp-route-id="@item.EventId">
+                                @Html.DisplayFor(modelItem => item.EventName)</a>
+                                
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Venue)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.InterestId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.EventDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.EventDescription)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IsPrivate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IsVirtual)
+                            </td>
+                            <td> @* These will be moved to the details page and only viewable during login *@
+                                <a asp-action="Edit" asp-route-id="@item.EventId">Edit</a> |
+                                 |
+                                <a asp-action="Delete" asp-route-id="@item.EventId">Delete</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
