@@ -9,75 +9,80 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.InterestId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IdentityUserId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Venue)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EventType)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EventDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EventDescription)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsPrivate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsVirtual)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.City)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.InterestId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdentityUserId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Venue)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EventType)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EventDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EventDescription)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsPrivate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsVirtual)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.City)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.EventId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.EventId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.EventId">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="container-lg">
+    <div class="col-12">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.InterestId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.IdentityUserId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Venue)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.EventType)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.EventDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.EventDescription)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.IsPrivate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.IsVirtual)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.City)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.InterestId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IdentityUserId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Venue)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EventType)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EventDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EventDescription)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IsPrivate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IsVirtual)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.City)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.EventId">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@item.EventId">Details</a> |
+                            <a asp-action="Delete" asp-route-id="@item.EventId">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
