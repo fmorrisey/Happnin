@@ -14,7 +14,7 @@ namespace Event_App.Models
         [Display (Name = "Venue Name ")]
         public string Venue { get; set; }
 
-        public int Street { get; set; }
+        public string Street { get; set; }
 
         public string City { get; set; }
 
