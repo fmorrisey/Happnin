@@ -163,10 +163,18 @@ namespace Event_App.Migrations
                     b.Property<string>("IdentityUserId")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("Interest")
+                        .IsRequired()
+                        .HasColumnName("Interest")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
+
+                    b.Property<int>("ZipCode")
+                        .HasColumnType("int");
 
                     b.HasKey("PersonId");
 
@@ -204,8 +212,8 @@ namespace Event_App.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "179bf138-e111-4ac9-ad65-35a0791e3736",
-                            ConcurrencyStamp = "a8e0e497-56c1-4a9e-8086-6124bf8bb312",
+                            Id = "d6829404-bb82-4d50-bf43-10c24eeed0c7",
+                            ConcurrencyStamp = "d176cfbd-5545-4f00-aa6c-33fa11e7af2e",
                             Name = "Person",
                             NormalizedName = "PERSON"
                         });
