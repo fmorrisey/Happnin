@@ -35,5 +35,11 @@ namespace Event_App.Models
 
         public bool IsVirtual { get; set; }
 
+        [NotMapped]
+        public List<Interest> interests { get; set; }
+        public List<Event> Events { get; set; }
+
+
+
     }
 }

@@ -66,6 +66,9 @@ namespace Event_App.Controllers
             return View(@event);
         }
 
+
+
+
         // GET: Event/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
