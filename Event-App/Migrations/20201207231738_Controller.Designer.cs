@@ -4,14 +4,16 @@ using Event_App.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Event_App.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201207231738_Controller")]
+    partial class Controller
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -212,8 +214,8 @@ namespace Event_App.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "bd26a60a-64f0-455c-ac41-717d285cfb45",
-                            ConcurrencyStamp = "0d803638-d304-4961-a66b-4deee93f1145",
+                            Id = "15881227-6a63-44cb-82d7-bddd66a6168a",
+                            ConcurrencyStamp = "c321783f-0c01-4800-9cea-24cffae79734",
                             Name = "Person",
                             NormalizedName = "PERSON"
                         });
