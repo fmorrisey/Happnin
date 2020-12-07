@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Event_App.Models
 {
-    public class Interests
+    public class Interest
     {
         [Key]
         public int InterestId { get; set; }
