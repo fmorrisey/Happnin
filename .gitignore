@@ -9,7 +9,10 @@
 *.user
 *.userosscache
 *.sln.docstates
-*./Event-App/Data/Migrations/*
+Event-App/Migrations/*.cs
+Event-App/Services/AuthKeys.cs
+Event-App/credentials.json
+
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
