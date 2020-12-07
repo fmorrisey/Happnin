@@ -22,6 +22,7 @@ namespace Event_App.Controllers
         // GET: Event
         public async Task<IActionResult> Index()
         {
+            ViewData["APIkey"] = Services.AuthKeys.Google_API_Key;
             return View(await _context.Event.ToListAsync());
         }
 
