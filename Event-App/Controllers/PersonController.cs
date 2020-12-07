@@ -69,6 +69,7 @@ namespace Event_App.Controllers
             return View(person);
         }
 
+
         // GET: Person/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {

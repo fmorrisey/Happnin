@@ -4,14 +4,16 @@ using Event_App.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Event_App.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201207163442_interesttype2")]
+    partial class interesttype2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -32,9 +34,6 @@ namespace Event_App.Migrations
                     b.Property<string>("EventDescription")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("EventId1")
-                        .HasColumnType("int");
-
                     b.Property<string>("EventName")
                         .HasColumnType("nvarchar(max)");
 
@@ -54,8 +53,6 @@ namespace Event_App.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("EventId");
-
-                    b.HasIndex("EventId1");
 
                     b.ToTable("Event");
                 });
@@ -204,8 +201,8 @@ namespace Event_App.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "179bf138-e111-4ac9-ad65-35a0791e3736",
-                            ConcurrencyStamp = "a8e0e497-56c1-4a9e-8086-6124bf8bb312",
+                            Id = "a7fdaa9b-dc39-4825-a136-9c16a5fa12b7",
+                            ConcurrencyStamp = "6ff54ebe-e5d3-431f-a7a3-5350f36fff76",
                             Name = "Person",
                             NormalizedName = "PERSON"
                         });
@@ -378,13 +375,6 @@ namespace Event_App.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
-                });
-
-            modelBuilder.Entity("Event_App.Models.Event", b =>
-                {
-                    b.HasOne("Event_App.Models.Event", null)
-                        .WithMany("Events")
-                        .HasForeignKey("EventId1");
                 });
 
             modelBuilder.Entity("Event_App.Models.Person", b =>

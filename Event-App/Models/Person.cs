@@ -39,5 +39,13 @@ namespace Event_App.Models
             }
         }
 
+        [DataType(DataType.PostalCode)]
+        [Display(Name = "Zip Code")]
+        public int ZipCode { get; set; }
+
+        [Required]
+        [Column("Interest")]
+        [Display(Name = "Interest")]
+        public string Interest { get; set; }
     }
 }

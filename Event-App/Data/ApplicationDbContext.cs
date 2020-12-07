@@ -26,11 +26,33 @@ namespace Event_App.Data
                 NormalizedName = "PERSON"
             }
             );
+
+            builder.Entity<Interest>()
+           .HasData(
+           new Interest { InterestId = 1, InterestType = "Basketball" },
+           new Interest { InterestId = 2, InterestType = "Football" },
+           new Interest { InterestId = 3, InterestType = "Soccer" },
+           new Interest { InterestId = 4, InterestType = "Cycling" },
+           new Interest { InterestId = 5, InterestType = "Rock Climbing" },
+           new Interest { InterestId = 6, InterestType = "Baseball" },
+           new Interest { InterestId = 7, InterestType = "Yoga" },
+           new Interest { InterestId = 8, InterestType = "Baking" },
+           new Interest { InterestId = 9, InterestType = "Game Night" },
+           new Interest { InterestId = 10, InterestType = "Trivia" },
+           new Interest { InterestId = 11, InterestType = "Crochete" },
+           new Interest { InterestId = 12, InterestType = "Music" },
+           new Interest { InterestId = 13, InterestType = "Networking" },
+           new Interest { InterestId = 14, InterestType = "Sky Diving" }
+            );
         }
+
+
 
         public DbSet<Event_App.Models.Person> Person { get; set; }
 
         public DbSet<Event_App.Models.Event> Event { get; set; }
+
+        public DbSet<Event_App.Models.Interest> Interest { get; set; }
 
     }
 }
