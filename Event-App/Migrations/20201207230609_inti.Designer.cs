@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Event_App.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201206195551_initial")]
-    partial class initial
+    [Migration("20201207230609_inti")]
+    partial class inti
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -55,6 +55,20 @@ namespace Event_App.Migrations
                     b.HasKey("EventId");
 
                     b.ToTable("Event");
+
+                    b.HasData(
+                        new
+                        {
+                            EventId = 134,
+                            EventDate = new DateTime(2020, 12, 8, 7, 0, 0, 0, DateTimeKind.Unspecified),
+                            EventDescription = "Come Drink BEER!!!",
+                            EventName = "Beer Crawl",
+                            IdentityUserId = 1,
+                            InterestId = 2,
+                            IsPrivate = false,
+                            IsVirtual = false,
+                            Venue = "Downtown"
+                        });
                 });
 
             modelBuilder.Entity("Event_App.Models.Person", b =>
@@ -110,15 +124,6 @@ namespace Event_App.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "143f26ec-5eec-4a16-9a28-424f64abdda7",
-                            ConcurrencyStamp = "af3feea0-3a32-42c5-8e84-0278d71a3788",
-                            Name = "Person",
-                            NormalizedName = "PERSON"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

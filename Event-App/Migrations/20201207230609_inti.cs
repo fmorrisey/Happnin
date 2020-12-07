@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Event_App.Migrations
 {
-    public partial class initial : Migration
+    public partial class inti : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -194,9 +194,9 @@ namespace Event_App.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "AspNetRoles",
-                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "143f26ec-5eec-4a16-9a28-424f64abdda7", "af3feea0-3a32-42c5-8e84-0278d71a3788", "Person", "PERSON" });
+                table: "Event",
+                columns: new[] { "EventId", "EventDate", "EventDescription", "EventName", "IdentityUserId", "InterestId", "IsPrivate", "IsVirtual", "Venue" },
+                values: new object[] { 134, new DateTime(2020, 12, 8, 7, 0, 0, 0, DateTimeKind.Unspecified), "Come Drink BEER!!!", "Beer Crawl", 1, 2, false, false, "Downtown" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

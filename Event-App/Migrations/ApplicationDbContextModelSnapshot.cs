@@ -53,6 +53,56 @@ namespace Event_App.Migrations
                     b.HasKey("EventId");
 
                     b.ToTable("Event");
+
+                    b.HasData(
+                        new
+                        {
+                            EventId = 133,
+                            EventDate = new DateTime(2020, 12, 8, 7, 0, 0, 0, DateTimeKind.Unspecified),
+                            EventDescription = "Be there, loser!",
+                            EventName = "Tour Harley-Davidson",
+                            IdentityUserId = 1,
+                            InterestId = 2,
+                            IsPrivate = false,
+                            IsVirtual = false,
+                            Venue = "Harley-Davidson Museum"
+                        },
+                        new
+                        {
+                            EventId = 134,
+                            EventDate = new DateTime(2020, 12, 8, 19, 0, 0, 0, DateTimeKind.Unspecified),
+                            EventDescription = "Come Drink BEER!!!",
+                            EventName = "Beer Crawl",
+                            IdentityUserId = 1,
+                            InterestId = 2,
+                            IsPrivate = false,
+                            IsVirtual = false,
+                            Venue = "City Lights, Menomonee River Valley"
+                        },
+                        new
+                        {
+                            EventId = 135,
+                            EventDate = new DateTime(2020, 12, 12, 17, 0, 0, 0, DateTimeKind.Unspecified),
+                            EventDescription = "We will be showing 'Back to the Future' parts 1, 2, and 3",
+                            EventName = "Movies at the Park",
+                            IdentityUserId = 1,
+                            InterestId = 1,
+                            IsPrivate = false,
+                            IsVirtual = false,
+                            Venue = "Lakeshore State Park"
+                        },
+                        new
+                        {
+                            EventId = 136,
+                            EventDate = new DateTime(2020, 12, 11, 21, 0, 0, 0, DateTimeKind.Unspecified),
+                            EventDescription = "Come bowling with us while we listen to all the best tunes of the 80s",
+                            EventName = "Bowling with the Oldies",
+                            IdentityUserId = 1,
+                            InterestId = 3,
+                            IsPrivate = false,
+                            IsVirtual = false,
+                            Venue = "Bay View Bowl"
+                        });
                 });
 
             modelBuilder.Entity("Event_App.Models.Person", b =>
@@ -108,15 +158,6 @@ namespace Event_App.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "b036f30d-15ff-4322-af3b-c5d83c5c29bd",
-                            ConcurrencyStamp = "eaf81b14-fffb-417b-8018-81d4f752c884",
-                            Name = "Person",
-                            NormalizedName = "PERSON"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
