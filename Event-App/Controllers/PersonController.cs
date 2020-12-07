@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Event_App.Data;
 using Event_App.Models;
+using System.Security.Claims;
 
 namespace Event_App.Controllers
 {
@@ -27,22 +28,28 @@ namespace Event_App.Controllers
         }
 
         // GET: Person/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details()
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+    
 
-            var person = await _context.Person
-                .Include(p => p.IdentityUser)
-                .FirstOrDefaultAsync(m => m.PersonId == id);
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var person = _context.Person.Where(c => c.IdentityUserId == userId).FirstOrDefault();
             if (person == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Create));
+            }
+            else
+            {
+                return View(person);
             }
 
-            return View(person);
+
+            //if (person == null)
+            //{
+            //    return NotFound();
+            //}
+
+            //return View(person);
         }
 
         // GET: Person/Create
@@ -57,7 +64,7 @@ namespace Event_App.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PersonId,IdentityUserId,FirstName,LastName")] Person person)
+        public async Task<IActionResult> Create(Person person)
         {
             if (ModelState.IsValid)
             {
@@ -92,7 +99,7 @@ namespace Event_App.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("PersonId,IdentityUserId,FirstName,LastName")] Person person)
+        public async Task<IActionResult> Edit(int id, Person person)
         {
             if (id != person.PersonId)
             {
