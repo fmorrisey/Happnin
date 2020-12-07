@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -13,16 +14,19 @@ namespace Event_App.Models
         public int EventId { get; set; }
 
         [ForeignKey("IdentityUser")]
-        public int IdentityUserId { get; set; }
+        public string IdentityUserId { get; set; }
+        public IdentityUser IdentityUser { get; set; }
 
         [Display(Name = "Event Name")]
         public string EventName { get; set; }
 
         [ForeignKey("Address")]
-        public string Venue { get; set; }
+        public int AddressId { get; set; }
+        public Address Address { get; set; }
 
         [ForeignKey("Interest")]
         public int InterestId { get; set; }
+        public Interest Interest { get; set; }
 
         [Display(Name = "Event Date")]
         [DisplayFormat(DataFormatString = "{0:MMM dd ddd h:mm tt}", ApplyFormatInEditMode = true)]
