@@ -24,8 +24,8 @@ namespace Event_App.Models
         [Display(Name = "Zip Code")]
         public int ZipCode { get; set; }
 
-        public string Lattitude { get; set; }
-        public string Longitude { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
 
     }
 }

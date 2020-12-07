@@ -1,6 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Event_App.Models;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace Event_App.Services
@@ -9,15 +11,15 @@ namespace Event_App.Services
     {
         public class GeocodingService
         {
-            private string GetGeoCodingURL(Customer customer)
+            private string GetGeoCodingURL(Address address)
             {
-                return $"https://maps.google.com/maps/api/geocode/json?address={customer.Line_1}+{customer.City}+{customer.State}&key="
-                    + AuthKeys.AuthKeys.Google_API_Key;
+                return $"https://maps.google.com/maps/api/geocode/json?address={address.Street}+{address.City}+{address.State}+{address.ZipCode}&key="
+                    + AuthKeys.Google_API_Key;
             }
 
-            public async Task<Customer> GetGeoCoding(Customer customer)
+            public async Task<Address> GetGeoCoding(Address address)
             {
-                string apiURL = GetGeoCodingURL(customer);
+                string apiURL = GetGeoCodingURL(address);
 
                 using (HttpClient client = new HttpClient())
                 {
@@ -34,15 +36,14 @@ namespace Event_App.Services
                         JToken results = jsonResults["results"][0];
                         JToken location = results["geometry"]["location"];
 
-                        customer.Latitude = (double)location["lat"];
-                        customer.Longitude = (double)location["lng"];
+                        address.Latitude = (double)location["lat"];
+                        address.Longitude = (double)location["lng"];
                     }
                 }
 
-                return customer;
+                return address;
             }
 
 
         }
     }
-}
