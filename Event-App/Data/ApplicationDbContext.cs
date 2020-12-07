@@ -15,6 +15,11 @@ namespace Event_App.Data
         {
 
         }
+
+        //public DbSet<Interest>Interests { get; set; }
+        //public DbSet<Event> Events { get; set; }
+        //public DbSet<Person>People { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -26,11 +31,22 @@ namespace Event_App.Data
                 NormalizedName = "PERSON"
             }
             );
+
+            builder.Entity<Interest>()
+                .HasData(
+                new Interest {InterestId =1,InterestType ="Music" },
+                new Interest { InterestId = 2, InterestType = "Sports" },
+                new Interest { InterestId = 3, InterestType = "Food" },
+                 new Interest { InterestId = 4, InterestType = "Party" }
+                );
         }
 
-        public DbSet<Event_App.Models.Person> Person { get; set; }
+        public DbSet<Person> Person { get; set; }
 
-        public DbSet<Event_App.Models.Event> Event { get; set; }
+        public DbSet<Event> Event { get; set; }
 
+        public DbSet<Interest> Interests { get; set; }
+
+        public DbSet<Address> Addresses { get; set; }
     }
 }

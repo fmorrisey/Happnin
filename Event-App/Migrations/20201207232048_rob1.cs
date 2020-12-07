@@ -3,10 +3,29 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Event_App.Migrations
 {
-    public partial class initial : Migration
+    public partial class rob1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Addresses",
+                columns: table => new
+                {
+                    AddressId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Venue = table.Column<string>(nullable: true),
+                    Street = table.Column<string>(nullable: true),
+                    City = table.Column<string>(nullable: true),
+                    State = table.Column<string>(nullable: true),
+                    ZipCode = table.Column<int>(nullable: false),
+                    Latitude = table.Column<double>(nullable: false),
+                    Longitude = table.Column<double>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Addresses", x => x.AddressId);
+                });
+
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
@@ -47,23 +66,16 @@ namespace Event_App.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Event",
+                name: "Interests",
                 columns: table => new
                 {
-                    EventId = table.Column<int>(nullable: false)
+                    InterestId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    IdentityUserId = table.Column<int>(nullable: false),
-                    EventName = table.Column<string>(nullable: true),
-                    Venue = table.Column<string>(nullable: true),
-                    InterestId = table.Column<int>(nullable: false),
-                    EventDate = table.Column<DateTime>(nullable: true),
-                    EventDescription = table.Column<string>(nullable: true),
-                    IsPrivate = table.Column<bool>(nullable: false),
-                    IsVirtual = table.Column<bool>(nullable: false)
+                    InterestType = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Event", x => x.EventId);
+                    table.PrimaryKey("PK_Interests", x => x.InterestId);
                 });
 
             migrationBuilder.CreateTable(
@@ -180,7 +192,8 @@ namespace Event_App.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     IdentityUserId = table.Column<string>(nullable: true),
                     FirstName = table.Column<string>(maxLength: 50, nullable: false),
-                    LastName = table.Column<string>(maxLength: 50, nullable: false)
+                    LastName = table.Column<string>(maxLength: 50, nullable: false),
+                    Zip = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -193,10 +206,59 @@ namespace Event_App.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Event",
+                columns: table => new
+                {
+                    EventId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    IdentityUserId = table.Column<string>(nullable: true),
+                    EventName = table.Column<string>(nullable: true),
+                    AddressId = table.Column<int>(nullable: false),
+                    InterestId = table.Column<int>(nullable: false),
+                    EventDate = table.Column<DateTime>(nullable: true),
+                    EventDescription = table.Column<string>(nullable: true),
+                    IsPrivate = table.Column<bool>(nullable: false),
+                    IsVirtual = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Event", x => x.EventId);
+                    table.ForeignKey(
+                        name: "FK_Event_Addresses_AddressId",
+                        column: x => x.AddressId,
+                        principalTable: "Addresses",
+                        principalColumn: "AddressId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Event_AspNetUsers_IdentityUserId",
+                        column: x => x.IdentityUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Event_Interests_InterestId",
+                        column: x => x.InterestId,
+                        principalTable: "Interests",
+                        principalColumn: "InterestId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "143f26ec-5eec-4a16-9a28-424f64abdda7", "af3feea0-3a32-42c5-8e84-0278d71a3788", "Person", "PERSON" });
+                values: new object[] { "73030384-74a1-4a96-b3c1-b6a40ac8d0c1", "79b4c374-e172-4a2d-a7c8-446561d299d5", "Person", "PERSON" });
+
+            migrationBuilder.InsertData(
+                table: "Interests",
+                columns: new[] { "InterestId", "InterestType" },
+                values: new object[,]
+                {
+                    { 1, "Music" },
+                    { 2, "Sports" },
+                    { 3, "Food" },
+                    { 4, "Party" }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -238,6 +300,21 @@ namespace Event_App.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Event_AddressId",
+                table: "Event",
+                column: "AddressId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Event_IdentityUserId",
+                table: "Event",
+                column: "IdentityUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Event_InterestId",
+                table: "Event",
+                column: "InterestId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Person_IdentityUserId",
                 table: "Person",
                 column: "IdentityUserId");
@@ -268,6 +345,12 @@ namespace Event_App.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "Addresses");
+
+            migrationBuilder.DropTable(
+                name: "Interests");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

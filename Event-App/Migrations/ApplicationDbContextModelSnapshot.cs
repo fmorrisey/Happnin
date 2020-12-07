@@ -19,12 +19,48 @@ namespace Event_App.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("Event_App.Models.Address", b =>
+                {
+                    b.Property<int>("AddressId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Latitude")
+                        .HasColumnType("float");
+
+                    b.Property<double>("Longitude")
+                        .HasColumnType("float");
+
+                    b.Property<string>("State")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Street")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Venue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ZipCode")
+                        .HasColumnType("int");
+
+                    b.HasKey("AddressId");
+
+                    b.ToTable("Addresses");
+                });
+
             modelBuilder.Entity("Event_App.Models.Event", b =>
                 {
                     b.Property<int>("EventId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AddressId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("EventDate")
                         .HasColumnType("datetime2");
@@ -35,8 +71,8 @@ namespace Event_App.Migrations
                     b.Property<string>("EventName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("IdentityUserId")
-                        .HasColumnType("int");
+                    b.Property<string>("IdentityUserId")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("InterestId")
                         .HasColumnType("int");
@@ -47,12 +83,52 @@ namespace Event_App.Migrations
                     b.Property<bool>("IsVirtual")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Venue")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("EventId");
 
+                    b.HasIndex("AddressId");
+
+                    b.HasIndex("IdentityUserId");
+
+                    b.HasIndex("InterestId");
+
                     b.ToTable("Event");
+                });
+
+            modelBuilder.Entity("Event_App.Models.Interest", b =>
+                {
+                    b.Property<int>("InterestId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("InterestType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("InterestId");
+
+                    b.ToTable("Interests");
+
+                    b.HasData(
+                        new
+                        {
+                            InterestId = 1,
+                            InterestType = "Music"
+                        },
+                        new
+                        {
+                            InterestId = 2,
+                            InterestType = "Sports"
+                        },
+                        new
+                        {
+                            InterestId = 3,
+                            InterestType = "Food"
+                        },
+                        new
+                        {
+                            InterestId = 4,
+                            InterestType = "Party"
+                        });
                 });
 
             modelBuilder.Entity("Event_App.Models.Person", b =>
@@ -75,6 +151,9 @@ namespace Event_App.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
+
+                    b.Property<int>("Zip")
+                        .HasColumnType("int");
 
                     b.HasKey("PersonId");
 
@@ -112,8 +191,8 @@ namespace Event_App.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "b036f30d-15ff-4322-af3b-c5d83c5c29bd",
-                            ConcurrencyStamp = "eaf81b14-fffb-417b-8018-81d4f752c884",
+                            Id = "73030384-74a1-4a96-b3c1-b6a40ac8d0c1",
+                            ConcurrencyStamp = "79b4c374-e172-4a2d-a7c8-446561d299d5",
                             Name = "Person",
                             NormalizedName = "PERSON"
                         });
@@ -286,6 +365,25 @@ namespace Event_App.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("Event_App.Models.Event", b =>
+                {
+                    b.HasOne("Event_App.Models.Address", "Address")
+                        .WithMany()
+                        .HasForeignKey("AddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "IdentityUser")
+                        .WithMany()
+                        .HasForeignKey("IdentityUserId");
+
+                    b.HasOne("Event_App.Models.Interest", "Interest")
+                        .WithMany()
+                        .HasForeignKey("InterestId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Event_App.Models.Person", b =>
