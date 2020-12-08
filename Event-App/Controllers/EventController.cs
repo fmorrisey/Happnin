@@ -74,11 +74,13 @@ namespace Event_App.Controllers
 
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             createEvent.CurrentPerson = _context.Person.Where(person => person.IdentityUserId == userId).SingleOrDefault();
+           
             if (createEvent.CurrentPerson == null)
             {
                 return new RedirectToActionResult("Create", "Person", null);
             }
             createEvent.Interests = _context.Interest.ToList();
+            
             return View(createEvent);
 
             
@@ -89,14 +91,15 @@ namespace Event_App.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Event newEvent, Address venue, Person person)
-        //public async Task<IActionResult> Create([Bind("EventId,IdentityUserId,EventName,Venue,InterestId,EventDate,EventDescription,IsPrivate,IsVirtual")] Event @event)
+        public async Task<IActionResult> Create(Event newEvent, Address venue)
         {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+           
+            var person = _context.Person.Where(person => person.IdentityUserId == userId).SingleOrDefault();
 
 
-
-            if (ModelState.IsValid)
-            {
+            //if (ModelState.IsValid)
+            //{
                 _context.Add(venue);
                 _context.SaveChanges();
 
@@ -115,8 +118,8 @@ namespace Event_App.Controllers
                 _context.SaveChanges();
                 //await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
-            }
-            return View(newEvent);
+           // }
+           // return View(newEvent);
         }
 
 
