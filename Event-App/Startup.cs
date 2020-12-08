@@ -1,4 +1,5 @@
 using Event_App.Data;
+using Event_App.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -37,7 +38,10 @@ namespace Event_App
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultUI()
                 .AddDefaultTokenProviders();
-            
+
+            // Geocoding services
+            services.AddTransient<Geocoding>();
+
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
             //Removed to allow faster Frontend changes

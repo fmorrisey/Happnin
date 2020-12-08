@@ -16,12 +16,12 @@ namespace Event_App.Controllers
     public class EventController : Controller
     {
         private readonly ApplicationDbContext _context;
-        //private Geocoding _geocode;
+        private Geocoding _geocoding;
 
-        public EventController(ApplicationDbContext context) //, Geocoding geocoding)
+        public EventController(ApplicationDbContext context, Geocoding geocoding)
         {
             _context = context;
-            //_geocode = geocoding;
+            _geocoding = geocoding;
         }
 
         // GET: Event
@@ -97,29 +97,27 @@ namespace Event_App.Controllers
            
             var person = _context.Person.Where(person => person.IdentityUserId == userId).SingleOrDefault();
 
+            _context.Add(venue);
+            _context.SaveChanges();
 
-            //if (ModelState.IsValid)
-            //{
-                _context.Add(venue);
-                _context.SaveChanges();
+            if (newEvent.IsVirtual == false) //this will save api calls cost $$$$ 
+            {
+                venue = await _geocoding.GetGeoCoding(venue);
+            }
 
-                GetCoordinates(venue);
-
-                _context.Update(venue);
-                _context.SaveChanges();
+            _context.Update(venue);
+            _context.SaveChanges();
                                 
-                _context.SaveChanges();
+            _context.SaveChanges();
                 
-                newEvent.AddressId = venue.AddressId;
-                newEvent.PersonId = person.PersonId;
+            newEvent.AddressId = venue.AddressId;
+            newEvent.PersonId = person.PersonId;
 
-
-                _context.Add(newEvent);
-                _context.SaveChanges();
-                //await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-           // }
-           // return View(newEvent);
+            _context.Add(newEvent);
+            _context.SaveChanges();
+ 
+            return RedirectToAction(nameof(Index));
+          
         }
 
 
@@ -209,29 +207,6 @@ namespace Event_App.Controllers
         {
             return _context.Event.Any(e => e.EventId == id);
         }
-
-        public async Task<Address> GetCoordinates(Address venue)
-        //public void GetCoordinates(Address venue)
-        {
-            string address = venue.Street + "+" + venue.City + "+" + venue.State + "+" + venue.ZipCode;
-            string baseUrl = "https://maps.googleapis.com/maps/api/geocode/json?address=" + address + "&key=" + AuthKeys.Google_API_Key;
-
-            var result = new System.Net.WebClient().DownloadString(baseUrl);
-            dynamic geo = JsonConvert.DeserializeObject(result);
-
-            var lat = geo.results[0].geometry.location.lat;//.ToString();
-            var lng = geo.results[0].geometry.location.lng; //.ToString();
-            venue.Latitude = lat;
-            venue.Longitude = lng;
-            return venue;
-           //_context. Address.Update(venue);
-            //_context.SaveChanges();
-
-
-
-
-        }
-
 
     }
 }
