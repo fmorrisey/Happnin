@@ -45,7 +45,8 @@ namespace Event_App.Data
            new Interest { InterestId = 11, InterestType = "Crochete" },
            new Interest { InterestId = 12, InterestType = "Music" },
            new Interest { InterestId = 13, InterestType = "Networking" },
-           new Interest { InterestId = 14, InterestType = "Sky Diving" }
+           new Interest { InterestId = 14, InterestType = "Sky Diving" },
+           new Interest { InterestId = 15, InterestType = "Party" }
             );
         }
 
