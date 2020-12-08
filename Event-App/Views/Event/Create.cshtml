@@ -1,4 +1,4 @@
-﻿@model Event_App.Models.Event
+﻿@model Event_App.Models.CreateEventViewModel
 
 @{
     ViewData["Title"] = "Create";
@@ -9,55 +9,94 @@
 
 <h4>Event</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="IdentityUserId" class="control-label"></label>
-                <input asp-for="IdentityUserId" class="form-control" />
-                <span asp-validation-for="IdentityUserId" class="text-danger"></span>
+<div class="=container">
+    <form asp-action="Create">
+        <div class="row">
+            <div class="col-sm-6">
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="CurrentPerson.IdentityUserId" />
+
+                <div class="form-group">
+                    <label asp-for="NewEvent.EventName" class="control-label"></label>
+                    <input asp-for="NewEvent.EventName" class="form-control" />
+                    <span asp-validation-for="NewEvent.EventName" class="text-danger"></span>
+                </div>
+                @*<div class="form-group">
+                        <label asp-for="Venue" class="control-label"></label>
+                        <input asp-for="Venue" class="form-control" />
+                        <span asp-validation-for="Venue" class="text-danger"></span>
+                </div>*@
+                @*<div class="form-group">
+                    <label asp-for="NewEvent.InterestId" class="control-label"> Interest </label>
+                    <select asp-for="NewEvent.InterestId" class="form-control" asp-items='@Model.Interests' />
+                    <span asp-validation-for="NewEvent.InterestId" class="text-danger"></span>
+                </div>*@
+                <div class="form-group">
+                    <label asp-for="NewEvent.InterestId" class="control-label">Interest Name</label>
+                    <input asp-for="interest" class="form-control" />
+                    <span asp-validation-for="NewEvent.InterestId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="NewEvent.EventDate" class="control-label"></label>
+                    <input asp-for="NewEvent.EventDate" class="form-control" />
+                    <span asp-validation-for="NewEvent.EventDate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="NewEvent.EventDescription" class="control-label"></label>
+                    <input asp-for="NewEvent.EventDescription" class="form-control" />
+                    <span asp-validation-for="NewEvent.EventDescription" class="text-danger"></span>
+                </div>
+                <div class="form-group form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" asp-for="NewEvent.IsPrivate" /> @Html.DisplayNameFor(model => model.NewEvent.IsPrivate)
+                    </label>
+                </div>
+                <div class="form-group form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" asp-for="NewEvent.IsVirtual" /> @Html.DisplayNameFor(model => model.NewEvent.IsVirtual)
+                    </label>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="EventName" class="control-label"></label>
-                <input asp-for="EventName" class="form-control" />
-                <span asp-validation-for="EventName" class="text-danger"></span>
+
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <label asp-for="Venue.Venue" class="control-label">Venue Name</label>
+                    <input asp-for="Venue.Venue" class="form-control" />
+                    <span asp-validation-for="Venue.Venue" class="text-danger"></span>
+                   
+                </div>
+                <div class="form-group">
+                    <label asp-for="Venue.Street" class="control-label"></label>
+                    <input asp-for="Venue.Street" class="form-control" />
+                    <span asp-validation-for="Venue.Street" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Venue.City" class="control-label"></label>
+                    <input asp-for="Venue.City" class="form-control" />
+                    <span asp-validation-for="Venue.City" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Venue.State" class="control-label"></label>
+                    <input asp-for="Venue.State" class="form-control" />
+                    <span asp-validation-for="Venue.State" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Venue.ZipCode" class="control-label"></label>
+                    <input asp-for="Venue.ZipCode" class="form-control" />
+                    <span asp-validation-for="Venue.ZipCode" class="text-danger"></span>
+                </div>
+
+
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Venue" class="control-label"></label>
-                <input asp-for="Venue" class="form-control" />
-                <span asp-validation-for="Venue" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="InterestId" class="control-label"></label>
-                <input asp-for="InterestId" class="form-control" />
-                <span asp-validation-for="InterestId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EventDate" class="control-label"></label>
-                <input asp-for="EventDate" class="form-control" />
-                <span asp-validation-for="EventDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EventDescription" class="control-label"></label>
-                <input asp-for="EventDescription" class="form-control" />
-                <span asp-validation-for="EventDescription" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsPrivate" /> @Html.DisplayNameFor(model => model.IsPrivate)
-                </label>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsVirtual" /> @Html.DisplayNameFor(model => model.IsVirtual)
-                </label>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
+
+        </div>
+    </form>
+
+    
 </div>
 
 <div>

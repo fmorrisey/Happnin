@@ -15,6 +15,11 @@ namespace Event_App.Data
         {
 
         }
+
+        //public DbSet<Interest>Interests { get; set; }
+        //public DbSet<Event> Events { get; set; }
+        //public DbSet<Person>People { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<Event>().HasData(
@@ -86,7 +91,7 @@ namespace Event_App.Data
 
         public DbSet<Event_App.Models.Person> Person { get; set; }
 
-        public DbSet<Event_App.Models.Event> Event { get; set; }
+        public DbSet<Event> Event { get; set; }
 
         public DbSet<Event_App.Models.Interest> Interest { get; set; }
 
