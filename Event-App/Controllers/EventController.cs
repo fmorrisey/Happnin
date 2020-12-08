@@ -28,7 +28,21 @@ namespace Event_App.Controllers
         public async Task<IActionResult> Index()
         {
             ViewData["APIkey"] = Services.AuthKeys.Google_API_Key;
-            return View(await _context.Event.ToListAsync());
+
+            //queries
+            EventViewModel eventViewModel = new EventViewModel()
+            {
+                
+                Events = _context.Event.ToList(),
+                Addresses = _context.Address.ToList(),
+                Interests = _context.Interest.ToList(),
+
+            };
+
+            List<EventViewModel> evm = new List<EventViewModel>();
+            evm.Add(eventViewModel);
+
+            return View(evm);
         }
 
         // GET: Event/Details/5
@@ -56,14 +70,14 @@ namespace Event_App.Controllers
             ///// var interestList = new SelectList(_context.Interest.ToList(),"ID","InterestId");
             // createEvent.Interest = interestList; //_context.Interest.ToList();// interestList;
 
+            CreateEventViewModel createEvent = new CreateEventViewModel();
 
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var person = _context.Person.Where(person => person.IdentityUserId == userId).SingleOrDefault();
-            if (person==null)
+            createEvent.CurrentPerson = _context.Person.Where(person => person.IdentityUserId == userId).SingleOrDefault();
+            if (createEvent.CurrentPerson == null)
             {
                 return new RedirectToActionResult("Create", "Person", null);
             }
-            CreateEventViewModel createEvent = new CreateEventViewModel();
             createEvent.Interests = _context.Interest.ToList();
             return View(createEvent);
 
@@ -75,7 +89,7 @@ namespace Event_App.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Event newEvent, Address venue)
+        public async Task<IActionResult> Create(Event newEvent, Address venue, Person person)
         //public async Task<IActionResult> Create([Bind("EventId,IdentityUserId,EventName,Venue,InterestId,EventDate,EventDescription,IsPrivate,IsVirtual")] Event @event)
         {
 
@@ -90,13 +104,15 @@ namespace Event_App.Controllers
 
                 _context.Update(venue);
                 _context.SaveChanges();
-
+                                
+                _context.SaveChanges();
+                
                 newEvent.AddressId = venue.AddressId;
+                newEvent.PersonId = person.PersonId;
 
 
                 _context.Add(newEvent);
                 _context.SaveChanges();
-
                 //await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
