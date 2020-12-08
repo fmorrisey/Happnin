@@ -9,6 +9,7 @@ using Event_App.Data;
 using Event_App.Models;
 using Event_App.Services;
 using Newtonsoft.Json;
+using System.Security.Claims;
 
 namespace Event_App.Controllers
 {
@@ -51,10 +52,17 @@ namespace Event_App.Controllers
         // GET: Event/Create
         public IActionResult Create()
         {
-           // CreateEventViewModel createEvent = new CreateEventViewModel();
-           ///// var interestList = new SelectList(_context.Interest.ToList(),"ID","InterestId");
-           // createEvent.Interest = interestList; //_context.Interest.ToList();// interestList;
+            // CreateEventViewModel createEvent = new CreateEventViewModel();
+            ///// var interestList = new SelectList(_context.Interest.ToList(),"ID","InterestId");
+            // createEvent.Interest = interestList; //_context.Interest.ToList();// interestList;
 
+
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var person = _context.Person.Where(person => person.IdentityUserId == userId).SingleOrDefault();
+            if (person==null)
+            {
+                return new RedirectToActionResult("Create", "Person", null);
+            }
             CreateEventViewModel createEvent = new CreateEventViewModel();
             createEvent.Interests = _context.Interest.ToList();
             return View(createEvent);
