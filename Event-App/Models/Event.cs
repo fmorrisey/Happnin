@@ -41,6 +41,7 @@ namespace Event_App.Models
 
         [NotMapped]
         public List<Interest> Interests { get; set; }
+
         [NotMapped]
         public List<Event> Events { get; set; }
 
