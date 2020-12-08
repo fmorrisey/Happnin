@@ -8,8 +8,10 @@ namespace Event_App.Models
 {
     public class EventViewModel : PageModel
     {
-        public Event EventEdit { get; set; }
-        public Address Address { get; set; }
+        
+        public Person Host { get; set; }
+        public List<Event> Events { get; set; }
+        public List<Address> Addresses { get; set; }
         public List<Interest> Interests { get; set; }
 
     }

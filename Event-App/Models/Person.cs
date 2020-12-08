@@ -29,7 +29,6 @@ namespace Event_App.Models
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
-
         [Display(Name = "Full Name")]
         public string FullName
         {

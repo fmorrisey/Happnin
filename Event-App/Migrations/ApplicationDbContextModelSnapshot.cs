@@ -292,6 +292,8 @@ namespace Event_App.Migrations
                         {
                             Id = "5fd1c3d4-09b3-4d19-bc53-f93b9ab0ee12",
                             ConcurrencyStamp = "9da13c71-e28d-4309-95ad-2f71793ce2ed",
+
+
                             Name = "Person",
                             NormalizedName = "PERSON"
                         });
