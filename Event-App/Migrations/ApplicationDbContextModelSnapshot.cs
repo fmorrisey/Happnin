@@ -251,9 +251,6 @@ namespace Event_App.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
-                    b.Property<int>("Zip")
-                        .HasColumnType("int");
-
                     b.Property<int>("ZipCode")
                         .HasColumnType("int");
 
@@ -293,8 +290,10 @@ namespace Event_App.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "30ae694c-5ca2-4e5d-b348-47d0711caa16",
-                            ConcurrencyStamp = "0736b98c-cb6d-4b7e-b1fe-1603a40094a4",
+                            Id = "5fd1c3d4-09b3-4d19-bc53-f93b9ab0ee12",
+                            ConcurrencyStamp = "9da13c71-e28d-4309-95ad-2f71793ce2ed",
+
+
                             Name = "Person",
                             NormalizedName = "PERSON"
                         });
