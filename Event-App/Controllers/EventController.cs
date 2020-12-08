@@ -52,7 +52,7 @@ namespace Event_App.Controllers
         public IActionResult Create()
         {
             CreateEventViewModel createEvent = new CreateEventViewModel();
-            var interests = _context.Interests;
+            var interests = _context.Interest;
             //createEvent.Interests = new SelectList(interests, "InterestId", "InterestType");
             return View(createEvent);
         }
@@ -62,20 +62,29 @@ namespace Event_App.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Event newEvent,Address venue)
+        public async Task<IActionResult> Create(Event newEvent, Address venue)
         //public async Task<IActionResult> Create([Bind("EventId,IdentityUserId,EventName,Venue,InterestId,EventDate,EventDescription,IsPrivate,IsVirtual")] Event @event)
         {
-            
+
+
+
             if (ModelState.IsValid)
             {
-               // _context.Add(venue);
-                GetCoordinates(venue);
                 _context.Add(venue);
+                _context.SaveChanges();
+
+                GetCoordinates(venue);
+
+                _context.Update(venue);
+                _context.SaveChanges();
+
                 newEvent.AddressId = venue.AddressId;
 
-                // add  address id to newevent
+
                 _context.Add(newEvent);
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
+
+                //await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(newEvent);
@@ -169,7 +178,8 @@ namespace Event_App.Controllers
             return _context.Event.Any(e => e.EventId == id);
         }
 
-        public async Task <Address> GetCoordinates(Address venue)
+        public async Task<Address> GetCoordinates(Address venue)
+        //public void GetCoordinates(Address venue)
         {
             string address = venue.Street + "+" + venue.City + "+" + venue.State + "+" + venue.ZipCode;
             string baseUrl = "https://maps.googleapis.com/maps/api/geocode/json?address=" + address + "&key=" + AuthKeys.Google_API_Key;
@@ -182,8 +192,8 @@ namespace Event_App.Controllers
             venue.Latitude = lat;
             venue.Longitude = lng;
             return venue;
-           // _context.Addresses.Update(venue);
-          //  _context.SaveChanges();
+           //_context. Address.Update(venue);
+            //_context.SaveChanges();
 
 
 

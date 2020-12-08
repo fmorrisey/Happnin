@@ -11,7 +11,7 @@ namespace Event_App.Models
         public Event NewEvent { get; set; }
         public Person CurrentPerson { get; set; }
         //public SelectList Interests { get; set; }
-        public Interest interest { get; set; }
+        public Interest Interest { get; set; }
         public Address Venue { get; set; }
 
     }
