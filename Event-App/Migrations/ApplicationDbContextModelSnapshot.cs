@@ -4,16 +4,14 @@ using Event_App.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Event_App.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201207232048_rob1")]
-    partial class rob1
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,7 +49,7 @@ namespace Event_App.Migrations
 
                     b.HasKey("AddressId");
 
-                    b.ToTable("Addresses");
+                    b.ToTable("Address");
                 });
 
             modelBuilder.Entity("Event_App.Models.Event", b =>
@@ -108,28 +106,78 @@ namespace Event_App.Migrations
 
                     b.HasKey("InterestId");
 
-                    b.ToTable("Interests");
+                    b.ToTable("Interest");
 
                     b.HasData(
                         new
                         {
                             InterestId = 1,
-                            InterestType = "Music"
+                            InterestType = "Basketball"
                         },
                         new
                         {
                             InterestId = 2,
-                            InterestType = "Sports"
+                            InterestType = "Football"
                         },
                         new
                         {
                             InterestId = 3,
-                            InterestType = "Food"
+                            InterestType = "Soccer"
                         },
                         new
                         {
                             InterestId = 4,
-                            InterestType = "Party"
+                            InterestType = "Cycling"
+                        },
+                        new
+                        {
+                            InterestId = 5,
+                            InterestType = "Rock Climbing"
+                        },
+                        new
+                        {
+                            InterestId = 6,
+                            InterestType = "Baseball"
+                        },
+                        new
+                        {
+                            InterestId = 7,
+                            InterestType = "Yoga"
+                        },
+                        new
+                        {
+                            InterestId = 8,
+                            InterestType = "Baking"
+                        },
+                        new
+                        {
+                            InterestId = 9,
+                            InterestType = "Game Night"
+                        },
+                        new
+                        {
+                            InterestId = 10,
+                            InterestType = "Trivia"
+                        },
+                        new
+                        {
+                            InterestId = 11,
+                            InterestType = "Crochete"
+                        },
+                        new
+                        {
+                            InterestId = 12,
+                            InterestType = "Music"
+                        },
+                        new
+                        {
+                            InterestId = 13,
+                            InterestType = "Networking"
+                        },
+                        new
+                        {
+                            InterestId = 14,
+                            InterestType = "Sky Diving"
                         });
                 });
 
@@ -149,12 +197,20 @@ namespace Event_App.Migrations
                     b.Property<string>("IdentityUserId")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("Interest")
+                        .IsRequired()
+                        .HasColumnName("Interest")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
                     b.Property<int>("Zip")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ZipCode")
                         .HasColumnType("int");
 
                     b.HasKey("PersonId");
@@ -193,8 +249,8 @@ namespace Event_App.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "73030384-74a1-4a96-b3c1-b6a40ac8d0c1",
-                            ConcurrencyStamp = "79b4c374-e172-4a2d-a7c8-446561d299d5",
+                            Id = "3e9f86f0-0ddb-45f5-ad02-9da9bcfccaa3",
+                            ConcurrencyStamp = "5806368b-7200-4369-8185-f9d558031bda",
                             Name = "Person",
                             NormalizedName = "PERSON"
                         });
