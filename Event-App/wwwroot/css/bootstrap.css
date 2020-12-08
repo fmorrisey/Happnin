@@ -13,34 +13,34 @@
  */
 @import url("https://fonts.googleapis.com/css2?family=News+Cycle:wght@400;700&display=swap");
 :root {
-  --blue: #EA4335;
-  --indigo: #6610f2;
-  --purple: #6f42c1;
-  --pink: #e83e8c;
-  --red: #f57a00;
-  --orange: #fd7e14;
-  --yellow: #f5e625;
-  --green: #22b24c;
-  --teal: #20c997;
-  --cyan: #369;
-  --white: #fff;
-  --gray: #777;
-  --gray-dark: #333;
-  --primary: #EA4335;
-  --secondary: #aaa;
-  --success: #22b24c;
-  --info: #369;
-  --warning: #f5e625;
-  --danger: #f57a00;
-  --light: #f8f9fa;
-  --dark: #222;
-  --breakpoint-xs: 0;
-  --breakpoint-sm: 576px;
-  --breakpoint-md: 768px;
-  --breakpoint-lg: 992px;
-  --breakpoint-xl: 1200px;
-  --font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    --blue: #EA4335;
+    --indigo: #6610f2;
+    --purple: #6f42c1;
+    --pink: #e83e8c;
+    --red: #f57a00;
+    --orange: #fd7e14;
+    --yellow: #f5e625;
+    --green: #22b24c;
+    --teal: #20c997;
+    --cyan: #369;
+    --white: #fff;
+    --gray: #777;
+    --gray-dark: #333;
+    --primary: #EA4335;
+    --secondary: #aaa;
+    --success: #22b24c;
+    --info: #369;
+    --warning: #f5e625;
+    --danger: #f57a00;
+    --light: #f8f9fa;
+    --dark: #222;
+    --breakpoint-xs: 0;
+    --breakpoint-sm: 576px;
+    --breakpoint-md: 768px;
+    --breakpoint-lg: 992px;
+    --breakpoint-xl: 1200px;
+    --font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
 *,
