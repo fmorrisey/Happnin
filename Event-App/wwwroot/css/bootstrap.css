@@ -64,8 +64,8 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
 
 .box {
     border: 3px solid transparent;
-    box-shadow: 0 .25rem .75rem rgba(0, 0, .2, .2);
-    border: 1px dashed;
+    box-shadow: 0 .25rem .75rem rgba(0, 0, .3, .3);
+    /*border: 1px dashed;*/
     margin-bottom: 10px;
 }
 
