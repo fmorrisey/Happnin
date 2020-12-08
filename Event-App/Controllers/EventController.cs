@@ -16,12 +16,12 @@ namespace Event_App.Controllers
     public class EventController : Controller
     {
         private readonly ApplicationDbContext _context;
-        //private Geocoding _geocode;
+        private Geocoding _geocoding;
 
-        public EventController(ApplicationDbContext context) //, Geocoding geocoding)
+        public EventController(ApplicationDbContext context, Geocoding geocoding)
         {
             _context = context;
-            //_geocode = geocoding;
+            _geocoding = geocoding;
         }
 
         // GET: Event
@@ -66,21 +66,19 @@ namespace Event_App.Controllers
         // GET: Event/Create
         public IActionResult Create()
         {
-             CreateEventViewModel createEvent = new CreateEventViewModel();
+            // CreateEventViewModel createEvent = new CreateEventViewModel();
             ///// var interestList = new SelectList(_context.Interest.ToList(),"ID","InterestId");
-             //createEvent.Interest = interestList; //_context.Interest.ToList();// interestList;
+            // createEvent.Interest = interestList; //_context.Interest.ToList();// interestList;
 
-            //Trouble with code below
-            //Person user ID is not being associated to person //
-            var userid = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            createEvent.CurrentPerson = _context.Person.Where(person => person.IdentityUserId == userid).SingleOrDefault();
+            CreateEventViewModel createEvent = new CreateEventViewModel();
 
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            createEvent.CurrentPerson = _context.Person.Where(person => person.IdentityUserId == userId).SingleOrDefault();
+           
             if (createEvent.CurrentPerson == null)
             {
-                return new RedirectToActionResult("create", "person", null);
+                return new RedirectToActionResult("Create", "Person", null);
             }
-            //Trouble with code above
-
             createEvent.Interests = _context.Interest.ToList();
             
             return View(createEvent);
@@ -99,29 +97,27 @@ namespace Event_App.Controllers
            
             var person = _context.Person.Where(person => person.IdentityUserId == userId).SingleOrDefault();
 
+            _context.Add(venue);
+            _context.SaveChanges();
 
-            //if (ModelState.IsValid)
-            //{
-                _context.Add(venue);
-                _context.SaveChanges();
+            if (newEvent.IsVirtual == false) //this will save api calls cost $$$$ 
+            {
+                venue = await _geocoding.GetGeoCoding(venue);
+            }
 
-                GetCoordinates(venue);
-
-                _context.Update(venue);
-                _context.SaveChanges();
+            _context.Update(venue);
+            _context.SaveChanges();
                                 
-                _context.SaveChanges();
+            _context.SaveChanges();
                 
-                newEvent.AddressId = venue.AddressId;
-                newEvent.PersonId = person.PersonId;
+            newEvent.AddressId = venue.AddressId;
+            newEvent.PersonId = person.PersonId;
 
-
-                _context.Add(newEvent);
-                _context.SaveChanges();
-                //await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-           // }
-           // return View(newEvent);
+            _context.Add(newEvent);
+            _context.SaveChanges();
+ 
+            return RedirectToAction(nameof(Index));
+          
         }
 
 
@@ -211,29 +207,6 @@ namespace Event_App.Controllers
         {
             return _context.Event.Any(e => e.EventId == id);
         }
-
-        public async Task<Address> GetCoordinates(Address venue)
-        //public void GetCoordinates(Address venue)
-        {
-            string address = venue.Street + "+" + venue.City + "+" + venue.State + "+" + venue.ZipCode;
-            string baseUrl = "https://maps.googleapis.com/maps/api/geocode/json?address=" + address + "&key=" + AuthKeys.Google_API_Key;
-
-            var result = new System.Net.WebClient().DownloadString(baseUrl);
-            dynamic geo = JsonConvert.DeserializeObject(result);
-
-            var lat = geo.results[0].geometry.location.lat;//.ToString();
-            var lng = geo.results[0].geometry.location.lng; //.ToString();
-            venue.Latitude = lat;
-            venue.Longitude = lng;
-            return venue;
-           //_context. Address.Update(venue);
-            //_context.SaveChanges();
-
-
-
-
-        }
-
 
     }
 }
