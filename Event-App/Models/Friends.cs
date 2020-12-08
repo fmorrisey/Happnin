@@ -10,7 +10,7 @@ namespace Event_App.Models
     public class Friends
     {
         [ForeignKey("IdentityUserId")]
-        public int IdentityUserId;
+        public string IdentityUserId;
 
         [ForeignKey("PersonId")]
         public int PersonId;

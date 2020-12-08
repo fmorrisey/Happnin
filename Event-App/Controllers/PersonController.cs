@@ -170,5 +170,25 @@ namespace Event_App.Controllers
         {
             return _context.Person.Any(e => e.PersonId == id);
         }
+
+        public List<Person> SearchByName(string name)
+        {
+            var listOfPersons = _context.Person.Where(p => p.FirstName == name || p.LastName == name || p.FullName == name).ToList();
+            return listOfPersons;
+        }
+        public List<Person> SearchByInterest(string interest)
+        {
+            var listOfPersons = _context.Person.Where(p => p.Interest == interest).ToList();
+            return listOfPersons;
+        }
+        public void AddFriend(int id)
+        {
+            var newFriend = _context.Person.Where(p => p.PersonId == id).FirstOrDefault();
+            Friends friend = new Friends();
+            friend.PersonId = id;
+            friend.IdentityUserId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+        }
+
+     
     }
 }
