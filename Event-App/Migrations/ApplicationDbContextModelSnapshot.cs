@@ -178,6 +178,11 @@ namespace Event_App.Migrations
                         {
                             InterestId = 14,
                             InterestType = "Sky Diving"
+                        },
+                        new
+                        {
+                            InterestId = 15,
+                            InterestType = "Party"
                         });
                 });
 
@@ -206,9 +211,6 @@ namespace Event_App.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
-
-                    b.Property<int>("Zip")
-                        .HasColumnType("int");
 
                     b.Property<int>("ZipCode")
                         .HasColumnType("int");
@@ -249,8 +251,8 @@ namespace Event_App.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "b630b371-7e13-46ef-814a-1f015e82a2a2",
-                            ConcurrencyStamp = "6db950b1-80c8-45ec-bb3b-c919f65ac3af",
+                            Id = "290ffed4-06ec-4a3a-abac-ebfe249bf01e",
+                            ConcurrencyStamp = "a8a191e4-27a5-46cb-a431-667b35a82ea1",
                             Name = "Person",
                             NormalizedName = "PERSON"
                         });
