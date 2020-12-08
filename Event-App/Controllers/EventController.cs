@@ -7,16 +7,20 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Event_App.Data;
 using Event_App.Models;
+using Event_App.Services;
+using Newtonsoft.Json;
 
 namespace Event_App.Controllers
 {
     public class EventController : Controller
     {
         private readonly ApplicationDbContext _context;
+        //private Geocoding _geocode;
 
-        public EventController(ApplicationDbContext context)
+        public EventController(ApplicationDbContext context) //, Geocoding geocoding)
         {
             _context = context;
+            //_geocode = geocoding;
         }
 
         // GET: Event
@@ -47,7 +51,10 @@ namespace Event_App.Controllers
         // GET: Event/Create
         public IActionResult Create()
         {
-            return View();
+            CreateEventViewModel createEvent = new CreateEventViewModel();
+            var interests = _context.Interests;
+            //createEvent.Interests = new SelectList(interests, "InterestId", "InterestType");
+            return View(createEvent);
         }
 
         // POST: Event/Create
@@ -55,15 +62,23 @@ namespace Event_App.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("EventId,IdentityUserId,EventName,Venue,InterestId,EventDate,EventDescription,IsPrivate,IsVirtual")] Event @event)
+        public async Task<IActionResult> Create(Event newEvent,Address venue)
+        //public async Task<IActionResult> Create([Bind("EventId,IdentityUserId,EventName,Venue,InterestId,EventDate,EventDescription,IsPrivate,IsVirtual")] Event @event)
         {
+            
             if (ModelState.IsValid)
             {
-                _context.Add(@event);
+               // _context.Add(venue);
+                GetCoordinates(venue);
+                _context.Add(venue);
+                newEvent.AddressId = venue.AddressId;
+
+                // add  address id to newevent
+                _context.Add(newEvent);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(@event);
+            return View(newEvent);
         }
 
 
@@ -153,5 +168,28 @@ namespace Event_App.Controllers
         {
             return _context.Event.Any(e => e.EventId == id);
         }
+
+        public async Task <Address> GetCoordinates(Address venue)
+        {
+            string address = venue.Street + "+" + venue.City + "+" + venue.State + "+" + venue.ZipCode;
+            string baseUrl = "https://maps.googleapis.com/maps/api/geocode/json?address=" + address + "&key=" + AuthKeys.Google_API_Key;
+
+            var result = new System.Net.WebClient().DownloadString(baseUrl);
+            dynamic geo = JsonConvert.DeserializeObject(result);
+
+            var lat = geo.results[0].geometry.location.lat;//.ToString();
+            var lng = geo.results[0].geometry.location.lng; //.ToString();
+            venue.Latitude = lat;
+            venue.Longitude = lng;
+            return venue;
+           // _context.Addresses.Update(venue);
+          //  _context.SaveChanges();
+
+
+
+
+        }
+
+
     }
 }

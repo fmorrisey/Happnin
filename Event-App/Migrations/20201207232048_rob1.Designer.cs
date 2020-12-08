@@ -4,14 +4,16 @@ using Event_App.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Event_App.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201207232048_rob1")]
+    partial class rob1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -68,9 +70,6 @@ namespace Event_App.Migrations
                     b.Property<string>("EventDescription")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("EventId1")
-                        .HasColumnType("int");
-
                     b.Property<string>("EventName")
                         .HasColumnType("nvarchar(max)");
 
@@ -88,7 +87,11 @@ namespace Event_App.Migrations
 
                     b.HasKey("EventId");
 
-                    b.HasIndex("EventId1");
+                    b.HasIndex("AddressId");
+
+                    b.HasIndex("IdentityUserId");
+
+                    b.HasIndex("InterestId");
 
                     b.ToTable("Event");
                 });
@@ -105,78 +108,28 @@ namespace Event_App.Migrations
 
                     b.HasKey("InterestId");
 
-                    b.ToTable("Interest");
+                    b.ToTable("Interests");
 
                     b.HasData(
                         new
                         {
                             InterestId = 1,
-                            InterestType = "Basketball"
-                        },
-                        new
-                        {
-                            InterestId = 2,
-                            InterestType = "Football"
-                        },
-                        new
-                        {
-                            InterestId = 3,
-                            InterestType = "Soccer"
-                        },
-                        new
-                        {
-                            InterestId = 4,
-                            InterestType = "Cycling"
-                        },
-                        new
-                        {
-                            InterestId = 5,
-                            InterestType = "Rock Climbing"
-                        },
-                        new
-                        {
-                            InterestId = 6,
-                            InterestType = "Baseball"
-                        },
-                        new
-                        {
-                            InterestId = 7,
-                            InterestType = "Yoga"
-                        },
-                        new
-                        {
-                            InterestId = 8,
-                            InterestType = "Baking"
-                        },
-                        new
-                        {
-                            InterestId = 9,
-                            InterestType = "Game Night"
-                        },
-                        new
-                        {
-                            InterestId = 10,
-                            InterestType = "Trivia"
-                        },
-                        new
-                        {
-                            InterestId = 11,
-                            InterestType = "Crochete"
-                        },
-                        new
-                        {
-                            InterestId = 12,
                             InterestType = "Music"
                         },
                         new
                         {
-                            InterestId = 13,
-                            InterestType = "Networking"
+                            InterestId = 2,
+                            InterestType = "Sports"
                         },
                         new
                         {
-                            InterestId = 14,
-                            InterestType = "Sky Diving"
+                            InterestId = 3,
+                            InterestType = "Food"
+                        },
+                        new
+                        {
+                            InterestId = 4,
+                            InterestType = "Party"
                         });
                 });
 
@@ -196,17 +149,12 @@ namespace Event_App.Migrations
                     b.Property<string>("IdentityUserId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("Interest")
-                        .IsRequired()
-                        .HasColumnName("Interest")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
-                    b.Property<int>("ZipCode")
+                    b.Property<int>("Zip")
                         .HasColumnType("int");
 
                     b.HasKey("PersonId");
@@ -245,8 +193,8 @@ namespace Event_App.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "23545b56-7d56-4953-b4e3-a90cf0aaa09b",
-                            ConcurrencyStamp = "2c2c911a-6457-44e0-89a1-fdc79db1b6af",
+                            Id = "73030384-74a1-4a96-b3c1-b6a40ac8d0c1",
+                            ConcurrencyStamp = "79b4c374-e172-4a2d-a7c8-446561d299d5",
                             Name = "Person",
                             NormalizedName = "PERSON"
                         });
@@ -423,9 +371,21 @@ namespace Event_App.Migrations
 
             modelBuilder.Entity("Event_App.Models.Event", b =>
                 {
-                    b.HasOne("Event_App.Models.Event", null)
-                        .WithMany("Events")
-                        .HasForeignKey("EventId1");
+                    b.HasOne("Event_App.Models.Address", "Address")
+                        .WithMany()
+                        .HasForeignKey("AddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "IdentityUser")
+                        .WithMany()
+                        .HasForeignKey("IdentityUserId");
+
+                    b.HasOne("Event_App.Models.Interest", "Interest")
+                        .WithMany()
+                        .HasForeignKey("InterestId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Event_App.Models.Person", b =>
