@@ -69,6 +69,16 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
     margin-bottom: 10px;
 }
 
+#map_wrapper{
+    height: 500px;
+}
+
+#map_canvas {
+    width: 100%;
+    height: 100%;
+
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";

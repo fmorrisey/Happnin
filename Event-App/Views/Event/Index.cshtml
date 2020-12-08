@@ -7,10 +7,10 @@
 <div class="row">
     <div class="col-md-6">
         <form asp-action="Index" method="get">
-            <div class="form-actions no-color">
+            <div class="form-actions no-color" >
                 <p>
-                    Find Event: <input type="text" name="SearchString" value="@ViewData["CurrentFilter"]" />
-                    <input type="submit" value="Search" class="btn-secondary" /> |
+                    Find Event: <input type="text" style="width: 50%" name="SearchString" value="@ViewData["CurrentFilter"]" />
+                    <input type="submit" value="Search" class="btn btn-secondary"  />
                     @*<a asp-action="Index">New Search</a>*@
                 </p>
                 @* Add drop down here! *@
@@ -23,7 +23,7 @@
             {
                 <div class="card-body bg-light w-88 box">
                     <div class="row">
-                        <div class="col-4">
+                        <div class="col-5">
                             <div>
 
 
@@ -36,7 +36,7 @@
 
                             </div>
                         </div>
-                        <div class="col-8">
+                        <div class="col-7">
                             <div>
 
                                 <p class="card-text">@Html.DisplayFor(modelItem => eventCard.Interest.InterestType)</p>
@@ -91,33 +91,47 @@
 
     <div class="col-md-6">
         @* Make the maps responsive later *@
+
         <p>
-            <a asp-action="Create">Create New</a>
+            <a asp-action="Create" class="btn btn-primary" style="float: right; margin-bottom: 10px;">Host an Event</a>
         </p>
+        
         <div class="box" id="map" style="height: 500px; width: 100%;">
             <script>
-                var map;
-                var marker;
+
+
+                let map;
+
                 function initMap() {
 
-                    map = new google.maps.Map(document.getElementById("map"), {
-                        zoom: 14,
+                    const map = new google.maps.Map(document.getElementById("map"), {
                         center: { lat: 43.039172, lng: -87.899492 },
-                        map: map
+                        zoom: 12,
+
+
                     });
 
                     //create a foreach loop to add mutiple markers to the map with lables
                     // https://developers.google.com/maps/documentation/javascript/examples
-                    marker = new google.maps.Marker({
-                        position: { lat: 43.039172, lng: -87.899492 },
-                        map: map
-                    });
+
+                    @foreach (var item in Model)
+                    {
+                        foreach (Event eventItem in item.Events)
+                        {
+                            @if (eventItem.Address.Latitude != default)
+                            {
+                                <text>
+                                var marker = new google.maps.Marker({
+                                position: {
+                                        lat: @eventItem.Address.Latitude,
+                                        lng: @eventItem.Address.Longitude},
+                                        map: map,
+                                    });
+                                </text>
+                            }
+                        }
+                    }
                 }
-
-
-
-
-
             </script>
 
             <script src="https://maps.googleapis.com/maps/api/js?key=@ViewData["APIkey"]&callback=initMap"
