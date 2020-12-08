@@ -51,10 +51,7 @@ namespace Event_App.Controllers
         // GET: Event/Create
         public IActionResult Create()
         {
-            CreateEventViewModel createEvent = new CreateEventViewModel();
-            var interests = _context.Interest;
-            //createEvent.Interests = new SelectList(interests, "InterestId", "InterestType");
-            return View(createEvent);
+            
         }
 
         // POST: Event/Create
