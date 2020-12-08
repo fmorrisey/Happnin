@@ -23,8 +23,14 @@ namespace Event_App.Controllers
         // GET: Person
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Person.Include(p => p.IdentityUser);
-            return View(await applicationDbContext.ToListAsync());
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var person = _context.Person.Where(p => p.IdentityUserId == userId);
+            if(person == null)
+            {
+                return View(nameof(Create));
+            }
+                
+            return View(await person.ToListAsync());
         }
 
         // GET: Person/Details/5
@@ -68,6 +74,8 @@ namespace Event_App.Controllers
         {
             if (ModelState.IsValid)
             {
+                var userid = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                person.IdentityUserId = userid;
                 _context.Add(person);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

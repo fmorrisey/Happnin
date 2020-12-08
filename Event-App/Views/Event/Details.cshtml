@@ -1,4 +1,4 @@
-﻿@model Event_App.ViewModels.EventDetailsViewModel
+﻿@model Event_App.Models.Event
 
 @{
     ViewData["Title"] = "Details";
@@ -12,52 +12,52 @@
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CurrentPerson.IdentityUserId)
+            @Html.DisplayNameFor(model => model.PersonId)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.EventDetails.IdentityUserId)
+            @Html.DisplayFor(model => model.PersonId)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.EventDetails.EventName)
+            @Html.DisplayNameFor(model => model.EventName)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.EventDetails.EventName)
+            @Html.DisplayFor(model => model.EventName)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.EventDetails.Address)
+            @Html.DisplayNameFor(model => model.Address)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.EventDetails.Address)
+            @Html.DisplayFor(model => model.Address)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Interest.InterestId)
+            @Html.DisplayNameFor(model => model.InterestId)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Interest.InterestId)
+            @Html.DisplayFor(model => model.InterestId)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.EventDetails.EventDate)
+            @Html.DisplayNameFor(model => model.EventDate)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.EventDetails.EventDate)
+            @Html.DisplayFor(model => model.EventDate)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.EventDetails.EventDescription)
+            @Html.DisplayNameFor(model => model.EventDescription)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.EventDetails.EventDescription)
+            @Html.DisplayFor(model => model.EventDescription)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.EventDetails.IsPrivate)
+            @Html.DisplayNameFor(model => model.IsPrivate)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.EventDetails.IsPrivate)
+            @Html.DisplayFor(model => model.IsPrivate)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.EventDetails.IsVirtual)
+            @Html.DisplayNameFor(model => model.IsVirtual)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.EventDetails.IsVirtual)
+            @Html.DisplayFor(model => model.IsVirtual)
         </dd>
     </dl>
 </div>
@@ -68,7 +68,7 @@
     }
 
     <p>Make this only available to creator of the event</p>
-    <a asp-action="Edit" asp-route-id="@Model.EventDetails.EventId">Edit</a> |
+    <a asp-action="Edit" asp-route-id="@Model.EventId">Edit</a> |
     <a asp-action="Delete" asp-route-id="Model.EventId">Delete</a>
     <a asp-action="Index">Back to List</a>
 </div>

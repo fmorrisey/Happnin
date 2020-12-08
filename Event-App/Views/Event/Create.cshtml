@@ -16,27 +16,19 @@
 
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input type="hidden" asp-for="CurrentPerson.IdentityUserId" />
-
+                <input type="hidden" asp-for="CurrentPerson.PersonId" />
                 <div class="form-group">
                     <label asp-for="NewEvent.EventName" class="control-label"></label>
                     <input asp-for="NewEvent.EventName" class="form-control" />
                     <span asp-validation-for="NewEvent.EventName" class="text-danger"></span>
                 </div>
-                @*<div class="form-group">
-                        <label asp-for="Venue" class="control-label"></label>
-                        <input asp-for="Venue" class="form-control" />
-                        <span asp-validation-for="Venue" class="text-danger"></span>
-                </div>*@
-            <div class="form-group">
-                <label asp-for="NewEvent.InterestId" class="control-label"> Interest </label>
-                <select asp-for="NewEvent.InterestId" class="form-control" asp-items='new SelectList(Model.Interests, "InterestId", "InterestType")'></select>
-                <span asp-validation-for="NewEvent.InterestId" class="text-danger"></span>
-            </div>
-                @*<div class="form-group">
-                    <label asp-for="NewEvent.InterestId" class="control-label">Interest Name</label>
-                    <input asp-for="Interest" class="form-control" />
+              
+                <div class="form-group">
+                    <label asp-for="NewEvent.InterestId" class="control-label"> Interest </label>
+                    <select asp-for="NewEvent.InterestId" class="form-control" asp-items='new SelectList(Model.Interests, "InterestId", "InterestType")'></select>
                     <span asp-validation-for="NewEvent.InterestId" class="text-danger"></span>
-                </div>*@
+                </div>
+        
                 <div class="form-group">
                     <label asp-for="NewEvent.EventDate" class="control-label"></label>
                     <input asp-for="NewEvent.EventDate" class="form-control" />

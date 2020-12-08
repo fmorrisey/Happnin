@@ -9,6 +9,7 @@ using Event_App.Data;
 using Event_App.Models;
 using Event_App.Services;
 using Newtonsoft.Json;
+using System.Security.Claims;
 
 namespace Event_App.Controllers
 {
@@ -27,7 +28,21 @@ namespace Event_App.Controllers
         public async Task<IActionResult> Index()
         {
             ViewData["APIkey"] = Services.AuthKeys.Google_API_Key;
-            return View(await _context.Event.ToListAsync());
+
+            //queries
+            EventViewModel eventViewModel = new EventViewModel()
+            {
+                
+                Events = _context.Event.ToList(),
+                Addresses = _context.Address.ToList(),
+                Interests = _context.Interest.ToList(),
+
+            };
+
+            List<EventViewModel> evm = new List<EventViewModel>();
+            evm.Add(eventViewModel);
+
+            return View(evm);
         }
 
         // GET: Event/Details/5
@@ -51,12 +66,23 @@ namespace Event_App.Controllers
         // GET: Event/Create
         public IActionResult Create()
         {
-           // CreateEventViewModel createEvent = new CreateEventViewModel();
-           ///// var interestList = new SelectList(_context.Interest.ToList(),"ID","InterestId");
-           // createEvent.Interest = interestList; //_context.Interest.ToList();// interestList;
+             CreateEventViewModel createEvent = new CreateEventViewModel();
+            ///// var interestList = new SelectList(_context.Interest.ToList(),"ID","InterestId");
+             //createEvent.Interest = interestList; //_context.Interest.ToList();// interestList;
 
-            CreateEventViewModel createEvent = new CreateEventViewModel();
+            //Trouble with code below
+            //Person user ID is not being associated to person //
+            var userid = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            createEvent.CurrentPerson = _context.Person.Where(person => person.IdentityUserId == userid).SingleOrDefault();
+
+            if (createEvent.CurrentPerson == null)
+            {
+                return new RedirectToActionResult("create", "person", null);
+            }
+            //Trouble with code above
+
             createEvent.Interests = _context.Interest.ToList();
+            
             return View(createEvent);
 
             
@@ -68,13 +94,14 @@ namespace Event_App.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Event newEvent, Address venue)
-        //public async Task<IActionResult> Create([Bind("EventId,IdentityUserId,EventName,Venue,InterestId,EventDate,EventDescription,IsPrivate,IsVirtual")] Event @event)
         {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+           
+            var person = _context.Person.Where(person => person.IdentityUserId == userId).SingleOrDefault();
 
 
-
-            if (ModelState.IsValid)
-            {
+            //if (ModelState.IsValid)
+            //{
                 _context.Add(venue);
                 _context.SaveChanges();
 
@@ -82,17 +109,19 @@ namespace Event_App.Controllers
 
                 _context.Update(venue);
                 _context.SaveChanges();
-
+                                
+                _context.SaveChanges();
+                
                 newEvent.AddressId = venue.AddressId;
+                newEvent.PersonId = person.PersonId;
 
 
                 _context.Add(newEvent);
                 _context.SaveChanges();
-
                 //await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
-            }
-            return View(newEvent);
+           // }
+           // return View(newEvent);
         }
 
 

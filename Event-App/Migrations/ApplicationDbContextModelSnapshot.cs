@@ -50,6 +50,30 @@ namespace Event_App.Migrations
                     b.HasKey("AddressId");
 
                     b.ToTable("Address");
+
+                    b.HasData(
+                        new
+                        {
+                            AddressId = 101,
+                            City = "Milwuakee",
+                            Latitude = 43.032442219673847,
+                            Longitude = -87.916671261364442,
+                            State = "WI",
+                            Street = "400 W Canal",
+                            Venue = "Harley Davidson Museum",
+                            ZipCode = 53201
+                        },
+                        new
+                        {
+                            AddressId = 102,
+                            City = "Milwuakee",
+                            Latitude = 43.033828735767912,
+                            Longitude = -87.895571346075158,
+                            State = "WI",
+                            Street = "500 N Harbor Dr",
+                            Venue = "Lake Shore State Park",
+                            ZipCode = 53202
+                        });
                 });
 
             modelBuilder.Entity("Event_App.Models.Event", b =>
@@ -71,9 +95,6 @@ namespace Event_App.Migrations
                     b.Property<string>("EventName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("IdentityUserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<int>("InterestId")
                         .HasColumnType("int");
 
@@ -83,13 +104,16 @@ namespace Event_App.Migrations
                     b.Property<bool>("IsVirtual")
                         .HasColumnType("bit");
 
+                    b.Property<int>("PersonId")
+                        .HasColumnType("int");
+
                     b.HasKey("EventId");
 
                     b.HasIndex("AddressId");
 
-                    b.HasIndex("IdentityUserId");
-
                     b.HasIndex("InterestId");
+
+                    b.HasIndex("PersonId");
 
                     b.ToTable("Event");
                 });
@@ -183,6 +207,21 @@ namespace Event_App.Migrations
                         {
                             InterestId = 15,
                             InterestType = "Party"
+                        },
+                        new
+                        {
+                            InterestId = 16,
+                            InterestType = "Movie Night"
+                        },
+                        new
+                        {
+                            InterestId = 17,
+                            InterestType = "Pub Crawl"
+                        },
+                        new
+                        {
+                            InterestId = 18,
+                            InterestType = "Tour"
                         });
                 });
 
@@ -251,8 +290,8 @@ namespace Event_App.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "290ffed4-06ec-4a3a-abac-ebfe249bf01e",
-                            ConcurrencyStamp = "a8a191e4-27a5-46cb-a431-667b35a82ea1",
+                            Id = "14215864-2c82-42c3-8014-fa0a7ec112fe",
+                            ConcurrencyStamp = "ebc2a9d3-6422-4806-9676-bee6ccf56ecb",
                             Name = "Person",
                             NormalizedName = "PERSON"
                         });
@@ -435,13 +474,15 @@ namespace Event_App.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "IdentityUser")
-                        .WithMany()
-                        .HasForeignKey("IdentityUserId");
-
                     b.HasOne("Event_App.Models.Interest", "Interest")
                         .WithMany()
                         .HasForeignKey("InterestId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Event_App.Models.Person", "Person")
+                        .WithMany()
+                        .HasForeignKey("PersonId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

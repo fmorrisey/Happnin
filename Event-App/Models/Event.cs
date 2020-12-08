@@ -13,9 +13,9 @@ namespace Event_App.Models
         [Key]
         public int EventId { get; set; }
 
-        [ForeignKey("IdentityUser")]
-        public string IdentityUserId { get; set; }
-        public IdentityUser IdentityUser { get; set; }
+        [ForeignKey("Person")]
+        public int PersonId { get; set; }
+        public Person Person { get; set; }
 
         [Display(Name = "Event Name")]
         public string EventName { get; set; }
@@ -41,6 +41,7 @@ namespace Event_App.Models
 
         [NotMapped]
         public List<Interest> Interests { get; set; }
+
         [NotMapped]
         public List<Event> Events { get; set; }
 

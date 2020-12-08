@@ -9,7 +9,8 @@
 *.user
 *.userosscache
 *.sln.docstates
-Event-App/Migrations
+!**/Migrations/*
+**/Migrations/*
 Event-App/Services/AuthKeys.cs
 Event-App/credentials.json
 
