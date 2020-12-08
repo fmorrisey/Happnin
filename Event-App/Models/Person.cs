@@ -29,10 +29,6 @@ namespace Event_App.Models
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
-        [Required]
-        [Display(Name = "Zip Code")]
-        public int Zip { get; set; }
-
 
         [Display(Name = "Full Name")]
         public string FullName
