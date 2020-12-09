@@ -74,14 +74,6 @@ namespace Event_App.Controllers
                 address = eventAddress,
 
             };
-        
-
-            //var @event = await _context.Event
-            //    .FirstOrDefaultAsync(m => m.EventId == id);
-            //if (@event == null)
-            //{
-            //    return NotFound();
-            //}
 
             return View(evd);
         }
