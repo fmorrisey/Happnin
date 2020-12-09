@@ -9,11 +9,11 @@ namespace Event_App.Models
 {
     public class Friends
     {
-        [ForeignKey("IdentityUserId")]
-        public int IdentityUserId;
+        [ForeignKey("Person")]
+        public int PersonId1;
 
-        [ForeignKey("PersonId")]
-        public int PersonId;
+        [ForeignKey("Person")]
+        public int PersonId2;
 
         public bool isPending { get; set; }
         public bool isAccepted { get; set; }
