@@ -77,7 +77,7 @@ namespace Event_App.Controllers
                 _context.Add(person);
                 person.IdentityUserId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Details));
             }
             ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", person.IdentityUserId);
             return View(person);
