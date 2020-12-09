@@ -24,7 +24,7 @@ namespace Event_App.Data
         public DbSet<Address> Address { get; set; }
 
 
-
+        
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
