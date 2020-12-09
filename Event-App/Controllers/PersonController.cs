@@ -72,15 +72,29 @@ namespace Event_App.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Person person)
         {
-            if (ModelState.IsValid)
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            person.IdentityUserId = userId;
+
+            try
             {
+
                 _context.Add(person);
                 person.IdentityUserId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Details));
             }
-            ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", person.IdentityUserId);
-            return View(person);
+            catch
+            {
+                return View();
+            }
+            //if (ModelState.IsValid)
+            //{
+            //    _context.Add(person);
+            //    await _context.SaveChangesAsync();
+            //    return RedirectToAction(nameof(Index));
+            //}
+            //ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", person.IdentityUserId);
+            //return View(person);
         }
 
 

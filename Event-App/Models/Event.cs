@@ -39,6 +39,10 @@ namespace Event_App.Models
 
         public bool IsVirtual { get; set; }
 
+        [Display(Name = "Event Website")]
+        public string EventUrl { get; set; }
+
+
         [NotMapped]
         public List<Interest> Interests { get; set; }
 
