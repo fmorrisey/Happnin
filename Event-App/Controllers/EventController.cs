@@ -94,8 +94,7 @@ namespace Event_App.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Event newEvent, Address venue)
         {
-            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-           
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);          
             var person = _context.Person.Where(person => person.IdentityUserId == userId).SingleOrDefault();
 
             _context.Add(venue);
