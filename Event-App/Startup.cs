@@ -42,6 +42,9 @@ namespace Event_App
             // Geocoding services
             services.AddTransient<Geocoding>();
 
+            // Mail Intergration
+            services.AddSingleton<MailKitService>();
+
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
             //Removed to allow faster Frontend changes

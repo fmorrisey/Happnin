@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Event_App.Services
 {
-    public class MailKit
+    public class MailKitService
     {
         public async Task SendEmail(Person person)
         {
