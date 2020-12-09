@@ -8,16 +8,20 @@ using Microsoft.EntityFrameworkCore;
 using Event_App.Data;
 using Event_App.Models;
 using System.Security.Claims;
+using Event_App.Controllers;
+using Event_App.Services;
 
 namespace Event_App.Controllers
 {
     public class PersonController : Controller
     {
         private readonly ApplicationDbContext _context;
-
-        public PersonController(ApplicationDbContext context)
+        private Geocoding _geocoding;
+        public PersonController(ApplicationDbContext context, Geocoding geocoding)
         {
             _context = context;
+            _geocoding = geocoding;
+
         }
 
         // GET: Person
@@ -75,12 +79,18 @@ namespace Event_App.Controllers
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             person.IdentityUserId = userId;
 
+            person = await _geocoding.GetGeoCoding(person);
             try
             {
+
                 _context.Person.Add(person);
 
-                _context.SaveChanges();
-               
+                _context.Add(person);
+                person.IdentityUserId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                await _context.SaveChangesAsync();
+
+                
+
                 return RedirectToAction(nameof(Details));
             }
             catch
@@ -122,6 +132,9 @@ namespace Event_App.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Person person)
         {
+            //var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            //person.IdentityUserId = userId;
+
             if (id != person.PersonId)
             {
                 return NotFound();
@@ -145,7 +158,7 @@ namespace Event_App.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Details));
             }
             ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", person.IdentityUserId);
             return View(person);
@@ -185,5 +198,42 @@ namespace Event_App.Controllers
         {
             return _context.Person.Any(e => e.PersonId == id);
         }
+
+        public List<Person> SearchByName(string name)
+        {
+            var listOfPersons = _context.Person.Where(p => p.FirstName == name || p.LastName == name || p.FullName == name).ToList();
+            return listOfPersons;
+        }
+        public List<Person> SearchByInterest(string interest)
+        {
+            var listOfPersons = _context.Person.Where(p => p.Interest == interest).ToList();
+            return listOfPersons;
+        }
+        public void AddFriend(int id)
+        {
+            var newFriend = _context.Person.Where(p => p.PersonId == id).FirstOrDefault();
+            Friends friend = new Friends();
+            friend.PersonId2 = id;
+            var selfId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            Person self = _context.Person.Where(s => s.IdentityUserId == selfId).FirstOrDefault();
+            friend.PersonId1 = self.PersonId;
+            friend.isPending = true;
+            self.pendingFriends.Add(newFriend);
+        }
+
+        public void AcceptFriendRequest(Friends friend)
+        {
+            friend.isPending = false;
+            friend.isAccepted = true;
+            Person self = _context.Person.Where(p => p.PersonId == friend.PersonId1).FirstOrDefault();
+            Person newFriend = _context.Person.Where(p => p.PersonId == friend.PersonId2).FirstOrDefault();
+            self.pendingFriends.Remove(newFriend);
+            newFriend.pendingFriends.Remove(self);
+            self.acceptedFriends.Add(newFriend);
+            newFriend.acceptedFriends.Add(self);
+
+        }
+
+     
     }
 }

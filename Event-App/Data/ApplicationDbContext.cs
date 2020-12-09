@@ -56,7 +56,8 @@ namespace Event_App.Data
           new Interest { InterestId = 15, InterestType = "Party" },
           new Interest { InterestId = 16, InterestType = "Movie Night" },
           new Interest { InterestId = 17, InterestType = "Pub Crawl" },
-          new Interest { InterestId = 18, InterestType = "Tour" }
+          new Interest { InterestId = 18, InterestType = "Tour" },
+          new Interest { InterestId = 20, InterestType = "Public Event" }
            );
 
             builder.Entity<Address>()
@@ -64,7 +65,11 @@ namespace Event_App.Data
            new Address { AddressId = 101, Venue = "Harley Davidson Museum", Street = "400 W Canal", City = "Milwuakee", State = "WI", ZipCode = 53201, Latitude = 43.03244221967385, Longitude = -87.91667126136444 },
            new Address { AddressId = 102, Venue = "Lake Shore State Park", Street = "500 N Harbor Dr", City = "Milwuakee", State = "WI", ZipCode = 53202, Latitude = 43.03382873576791, Longitude = -87.89557134607516 }
           );
+
+           
         }
+
+
 
             //builder.Entity<Event>().HasData(
             //    new Event

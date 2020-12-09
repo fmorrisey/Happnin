@@ -355,5 +355,6 @@ MigrationBackup/
 .ionide/
 
 Event-App/Services/AuthKeys.cs
+Event-App/Migrations/
 
 Event-App/Migrations/
