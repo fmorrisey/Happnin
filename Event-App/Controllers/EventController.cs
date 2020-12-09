@@ -10,6 +10,7 @@ using Event_App.Models;
 using Event_App.Services;
 using Newtonsoft.Json;
 using System.Security.Claims;
+using Newtonsoft.Json.Linq;
 
 namespace Event_App.Controllers
 {
