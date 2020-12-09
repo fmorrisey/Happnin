@@ -355,6 +355,12 @@ MigrationBackup/
 .ionide/
 
 Event-App/Services/AuthKeys.cs
+<<<<<<< Updated upstream
 Event-App/Migrations/
+=======
+<<<<<<< HEAD
+>>>>>>> Stashed changes
 
+=======
+>>>>>>> 39de135ef3cd0c3d00a70ca5671d279d9699802d
 Event-App/Migrations/

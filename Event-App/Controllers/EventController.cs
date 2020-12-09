@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using Event_App.Data;
+﻿using Event_App.Data;
 using Event_App.Models;
 using Event_App.Services;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
-using Newtonsoft.Json.Linq;
-using Microsoft.Docs.Samples;
+using System.Threading.Tasks;
 
 namespace Event_App.Controllers
 {
@@ -112,7 +108,7 @@ namespace Event_App.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Event newEvent, Address venue)
         {
-            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);          
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var person = _context.Person.Where(person => person.IdentityUserId == userId).SingleOrDefault();
 
             _context.Add(venue);
@@ -121,7 +117,7 @@ namespace Event_App.Controllers
             if (newEvent.IsVirtual == false) //this will save api calls cost $$$$ 
             {
                 venue = await _geocoding.GetGeoCoding(venue);
-                
+
 
             }
 
@@ -257,16 +253,15 @@ namespace Event_App.Controllers
             return _context.Event.Any(e => e.EventId == id);
         }
 
-<<<<<<<
-       // [HttpPost]
-       // [ValidateAntiForgeryToken]
+        // [HttpPost]
+        // [ValidateAntiForgeryToken]
         public ActionResult CreatePublicEvents(Event newEvent, Address address)
         {
 
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var person = _context.Person.Where(person => person.IdentityUserId == userId).SingleOrDefault();
 
-            string eventUrl = _publicEvents.GetEvents(person);  
+            string eventUrl = _publicEvents.GetEvents(person);
             var result = new System.Net.WebClient().DownloadString(eventUrl);
             dynamic eventList = JsonConvert.DeserializeObject(result);
 
@@ -305,27 +300,21 @@ namespace Event_App.Controllers
                 _context.Add(newEvent);
                 _context.SaveChanges();
 
-                
+
             }
             return RedirectToAction(nameof(Index));
 
         }
 
 
+        public ActionResult Confirm(int id)
+        {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var person = _context.Person.Where(person => person.IdentityUserId == userId).SingleOrDefault();
 
-=======
-        
-        //public void Confirm(int id)
-        //{
-        //    var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-        //    var person = _context.Person.Where(person => person.IdentityUserId == userId).SingleOrDefault();
-                        
-
-        //}
+            return RedirectToAction(nameof(Index));
+        }
 
 
-
-
->>>>>>>
     }
 }
