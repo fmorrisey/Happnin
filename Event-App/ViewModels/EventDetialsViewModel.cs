@@ -11,6 +11,7 @@ namespace Event_App.Models
         public Person host { get; set; }
         public Interest interest { get; set; }
         public Address address { get; set; }
+        public List<Interest> Interests { get; set; }
 
     }
 }

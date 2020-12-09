@@ -147,7 +147,8 @@ namespace Event_App.Controllers
             }
 
             var eventContext = await _context.Event
-                    .FirstOrDefaultAsync(m => m.EventId == id);
+                    .FindAsync(id);
+
             if (eventContext == null)
             {
                 return NotFound();
@@ -164,8 +165,9 @@ namespace Event_App.Controllers
                 deatilEvent = eventContext,
                 host = eventHost,
                 address = eventAddress,
+                Interests = _context.Interest.ToList()
 
-            };
+        };
 
             return View(evd);
         }
@@ -175,9 +177,9 @@ namespace Event_App.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("EventId,IdentityUserId,EventName,Venue,InterestId,EventDate,EventDescription,IsPrivate,IsVirtual")] Event @event)
+        public async Task<IActionResult> Edit(int id, Event editEvent, Address address)
         {
-            if (id != @event.EventId)
+            if (id != editEvent.EventId)
             {
                 return NotFound();
             }
@@ -186,12 +188,23 @@ namespace Event_App.Controllers
             {
                 try
                 {
-                    _context.Update(@event);
-                    await _context.SaveChangesAsync();
+
+                    if (editEvent.IsVirtual == false) //this will save api calls cost $$$$ 
+                    {
+                        address = await _geocoding.GetGeoCoding(address);
+                    }
+
+                    editEvent.AddressId = address.AddressId;
+
+                    _context.Update(address);
+                    _context.Update(editEvent);
+                    _context.SaveChanges();
+
+                    return RedirectToAction(nameof(Index));
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!EventExists(@event.EventId))
+                    if (!EventExists(editEvent.EventId))
                     {
                         return NotFound();
                     }
@@ -202,7 +215,7 @@ namespace Event_App.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(@event);
+            return View(editEvent);
         }
 
         // GET: Event/Delete/5
