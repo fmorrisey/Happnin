@@ -253,7 +253,7 @@ namespace Event_App.Controllers
                 newEvent.EventName = name;
                 newEvent.EventDate = date;
                 newEvent.AddressId = address.AddressId;
-                newEvent.PersonId = 3;
+                newEvent.PersonId = 1;
                 newEvent.InterestId = 20;
 
                 //newEvent.Address = address.Venue;
