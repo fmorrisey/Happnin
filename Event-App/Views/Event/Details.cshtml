@@ -73,9 +73,10 @@
                     
 
                 </div>
-                <div>
+                <div><strike>
                     <a asp-action="Edit" asp-route-id="@Model.deatilEvent.EventId">Edit</a> |
                     <a asp-action="Delete" asp-route-id="Model.deatilEvent.EventId">Delete</a>
+                    </strike>
                 </div>
             </div>
 
@@ -103,60 +104,9 @@
             </div>
         </div>
     </div>
-    @*<dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PersonId)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PersonId)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.EventName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.EventName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Address)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Address)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.InterestId)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.InterestId)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.EventDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.EventDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.EventDescription)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.EventDescription)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IsPrivate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IsPrivate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IsVirtual)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IsVirtual)
-        </dd>
-    </dl>*@
+   
 </div>
 <div>
-
-    
 
     @*<p>Make this only available to creator of the event</p>
 

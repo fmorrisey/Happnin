@@ -167,7 +167,7 @@ namespace Event_App.Controllers
                 address = eventAddress,
                 Interests = _context.Interest.ToList()
 
-        };
+            };
 
             return View(evd);
         }
@@ -181,7 +181,7 @@ namespace Event_App.Controllers
         {
             if (id != editEvent.EventId)
             {
-                return NotFound();
+              return NotFound();
             }
 
             if (ModelState.IsValid)
