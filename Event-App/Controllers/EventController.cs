@@ -146,12 +146,28 @@ namespace Event_App.Controllers
                 return NotFound();
             }
 
-            var @event = await _context.Event.FindAsync(id);
-            if (@event == null)
+            var eventContext = await _context.Event
+                    .FirstOrDefaultAsync(m => m.EventId == id);
+            if (eventContext == null)
             {
                 return NotFound();
             }
-            return View(@event);
+
+            var eventHost = await _context.Person
+                    .FirstOrDefaultAsync(m => m.PersonId == eventContext.PersonId);
+            var eventAddress = await _context.Address
+                    .FirstOrDefaultAsync(a => a.AddressId == eventContext.AddressId);
+
+
+            EventDetialsViewModel evd = new EventDetialsViewModel()
+            {
+                deatilEvent = eventContext,
+                host = eventHost,
+                address = eventAddress,
+
+            };
+
+            return View(evd);
         }
 
         // POST: Event/Edit/5

@@ -21,10 +21,10 @@
                             <p class="card-text">Private Event</p>
                         }
                         <p>@Html.DisplayFor(model => model.interest.InterestType)</p>
-                        <h4 class="card-title">
+                        <h3 class="card-title">
                             @Html.DisplayFor(model => model.deatilEvent.EventName)
 
-                        </h4>
+                        </h3>
 
 
 
@@ -49,12 +49,27 @@
                                 <a href="@Model.deatilEvent.EventUrl">@Html.DisplayFor(modelItem => Model.deatilEvent.EventUrl)</a>
                             </p>
                         }
-                        
+                        @if (Model.deatilEvent.IsVirtual == false && Model.deatilEvent.IsPrivate == true)
+                        {
+                            <p class="card-text">
+                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-geo-alt-fill eventIcon" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                                </svg>
+
+                                @Html.DisplayFor(modelItem => Model.address.Venue)
+
+
+                            </p>
+                        }
 
                     </div>
                     <div class="card-body">
-                        <p class="card-text">@Html.DisplayFor(modelItem => Model.deatilEvent.EventDescription)</p>
-                    </div>
+                        <p class="card-text">
+                            @Html.DisplayFor(modelItem => Model.deatilEvent.EventDescription)<br />
+                                                
+                        </p>
+                        
+                    </div>  
                     
 
                 </div>
@@ -68,11 +83,21 @@
                 <div class="card badge-light w-88 box" style="margin-right: 10px">
                     <div class="card-header">
 
-                        <h5 class="card-title">Host: @Html.DisplayFor(model => model.host.FullName)</h5>
-                        <p class="card-text">@Html.DisplayFor(modelItem => Model.deatilEvent.EventDate)</p>
+                        <h4 class="card-title">Host: @Html.DisplayFor(model => model.host.FullName)</h4>
+                        <p class="card-subtitle"><strong>@Html.DisplayFor(modelItem => Model.deatilEvent.EventDate)</strong></p>
 
 
-                        
+                        <p class="card-text">
+                            @if (Model.address.Street != default)
+                            {
+                                @Html.DisplayFor(modelItem => Model.address.Venue)<br />
+                                @Html.DisplayFor(modelItem => Model.address.Street)<br />
+                                @Html.DisplayFor(modelItem => Model.address.City)
+                                @Html.DisplayFor(modelItem => Model.address.State)<br />
+                            }
+                            @Html.DisplayFor(modelItem => Model.address.ZipCode)<br />
+                        </p>
+
                     </div>
                 </div>
             </div>
