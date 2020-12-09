@@ -17,33 +17,43 @@
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input type="hidden" asp-for="CurrentPerson.IdentityUserId" />
                 <input type="hidden" asp-for="CurrentPerson.PersonId" />
+
                 <div class="form-group">
                     <label asp-for="NewEvent.EventName" class="control-label"></label>
                     <input asp-for="NewEvent.EventName" class="form-control" />
                     <span asp-validation-for="NewEvent.EventName" class="text-danger"></span>
                 </div>
-              
+
                 <div class="form-group">
                     <label asp-for="NewEvent.InterestId" class="control-label"> Interest </label>
                     <select asp-for="NewEvent.InterestId" class="form-control" asp-items='new SelectList(Model.Interests, "InterestId", "InterestType")'></select>
                     <span asp-validation-for="NewEvent.InterestId" class="text-danger"></span>
                 </div>
-        
+
                 <div class="form-group">
                     <label asp-for="NewEvent.EventDate" class="control-label"></label>
                     <input asp-for="NewEvent.EventDate" class="form-control" />
                     <span asp-validation-for="NewEvent.EventDate" class="text-danger"></span>
                 </div>
+
                 <div class="form-group">
                     <label asp-for="NewEvent.EventDescription" class="control-label"></label>
                     <input asp-for="NewEvent.EventDescription" class="form-control" />
                     <span asp-validation-for="NewEvent.EventDescription" class="text-danger"></span>
                 </div>
+
+                <div class="form-group">
+                    <label asp-for="NewEvent.EventUrl" class="control-label"></label>
+                    <input asp-for="NewEvent.EventUrl" class="form-control" />
+                    <span asp-validation-for="NewEvent.EventUrl" class="text-danger"></span>
+                </div>
+
                 <div class="form-group form-check">
                     <label class="form-check-label">
                         <input class="form-check-input" asp-for="NewEvent.IsPrivate" /> @Html.DisplayNameFor(model => model.NewEvent.IsPrivate)
                     </label>
                 </div>
+
                 <div class="form-group form-check">
                     <label class="form-check-label">
                         <input class="form-check-input" asp-for="NewEvent.IsVirtual" /> @Html.DisplayNameFor(model => model.NewEvent.IsVirtual)

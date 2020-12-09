@@ -95,6 +95,9 @@ namespace Event_App.Migrations
                     b.Property<string>("EventName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("EventUrl")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("InterestId")
                         .HasColumnType("int");
 
@@ -290,10 +293,8 @@ namespace Event_App.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "5fd1c3d4-09b3-4d19-bc53-f93b9ab0ee12",
-                            ConcurrencyStamp = "9da13c71-e28d-4309-95ad-2f71793ce2ed",
-
-
+                            Id = "fcdf5743-3b6b-49af-bba9-10d753e32108",
+                            ConcurrencyStamp = "b3dad280-d2a4-45d5-9b30-2f4a8999a4a3",
                             Name = "Person",
                             NormalizedName = "PERSON"
                         });
