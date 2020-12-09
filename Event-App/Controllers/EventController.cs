@@ -11,6 +11,7 @@ using Event_App.Services;
 using Newtonsoft.Json;
 using System.Security.Claims;
 using Newtonsoft.Json.Linq;
+using Microsoft.Docs.Samples;
 
 namespace Event_App.Controllers
 {
@@ -36,7 +37,7 @@ namespace Event_App.Controllers
             //queries
             EventViewModel eventViewModel = new EventViewModel()
             {
-                
+
                 Events = _context.Event.ToList(),
                 Addresses = _context.Address.ToList(),
                 Interests = _context.Interest.ToList(),
@@ -56,7 +57,7 @@ namespace Event_App.Controllers
             {
                 return NotFound();
             }
-            
+
             var eventContext = await _context.Event
                     .FirstOrDefaultAsync(m => m.EventId == id);
             if (eventContext == null)
@@ -92,16 +93,16 @@ namespace Event_App.Controllers
 
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             createEvent.CurrentPerson = _context.Person.Where(person => person.IdentityUserId == userId).SingleOrDefault();
-           
+
             if (createEvent.CurrentPerson == null)
             {
                 return new RedirectToActionResult("Create", "Person", null);
             }
             createEvent.Interests = _context.Interest.ToList();
-            
+
             return View(createEvent);
 
-            
+
         }
 
         // POST: Event/Create
@@ -126,17 +127,17 @@ namespace Event_App.Controllers
 
             _context.Update(venue);
             _context.SaveChanges();
-                                
+
             _context.SaveChanges();
-                
+
             newEvent.AddressId = venue.AddressId;
             newEvent.PersonId = person.PersonId;
 
             _context.Add(newEvent);
             _context.SaveChanges();
- 
+
             return RedirectToAction(nameof(Index));
-          
+
         }
 
 
@@ -185,7 +186,7 @@ namespace Event_App.Controllers
         {
             if (id != editEvent.EventId)
             {
-              return NotFound();
+                return NotFound();
             }
 
             if (ModelState.IsValid)
@@ -256,6 +257,7 @@ namespace Event_App.Controllers
             return _context.Event.Any(e => e.EventId == id);
         }
 
+<<<<<<<
        // [HttpPost]
        // [ValidateAntiForgeryToken]
         public ActionResult CreatePublicEvents(Event newEvent, Address address)
@@ -311,5 +313,19 @@ namespace Event_App.Controllers
 
 
 
+=======
+        
+        //public void Confirm(int id)
+        //{
+        //    var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+        //    var person = _context.Person.Where(person => person.IdentityUserId == userId).SingleOrDefault();
+                        
+
+        //}
+
+
+
+
+>>>>>>>
     }
 }

@@ -73,10 +73,44 @@
                     
 
                 </div>
-                <div><strike>
-                    <a asp-action="Edit" asp-route-id="@Model.deatilEvent.EventId">Edit</a> |
-                    <a asp-action="Delete" asp-route-id="Model.deatilEvent.EventId">Delete</a>
+                <div>
+                    <strike>
+                        <a asp-action="Edit" asp-route-id="@Model.deatilEvent.EventId">Edit</a> |
+                        <a asp-action="Delete" asp-route-id="Model.deatilEvent.EventId">Delete</a>
                     </strike>
+
+                    
+
+
+                    <a asp-action="Confirm" 
+                       asp-route-id="@Model.deatilEvent.EventId" onclick="document.location.reload(true)">Confirm</a>
+                   
+                    <button type="button"
+                           value="Go Somewhere Else"
+                           onclick="location.href='@Url.Action("Confirm", "Event")'">CLick</button>
+
+                    <button @*asp-action="Confirm"*@ class="btn btn-primary"
+                            onClick="Confirm(); document.location.reload(true);"
+                            style="float: right; margin-bottom: 10px;">
+                        Attend Event
+                    </button>
+
+                    <script>
+                        function Confirm() {
+                            $.ajax({
+                                type: "POST",
+                                url: "/Event/Confirm/@Model.deatilEvent.EventId",
+                                async: true,
+                                success: function (msg) {
+                                    ServiceSucceeded(msg);
+                                },
+                                error: function () {
+                                    return "error";
+                                }
+                            });
+                        }
+                    </script>
+
                 </div>
             </div>
 
