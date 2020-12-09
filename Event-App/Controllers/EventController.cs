@@ -53,15 +53,29 @@ namespace Event_App.Controllers
             {
                 return NotFound();
             }
-
-            var @event = await _context.Event
-                .FirstOrDefaultAsync(m => m.EventId == id);
-            if (@event == null)
+            
+            var eventContext = await _context.Event
+                    .FirstOrDefaultAsync(m => m.EventId == id);
+            if (eventContext == null)
             {
                 return NotFound();
             }
 
-            return View(@event);
+            var eventHost = await _context.Person
+                    .FirstOrDefaultAsync(m => m.PersonId == eventContext.PersonId);
+            var eventAddress = await _context.Address
+                    .FirstOrDefaultAsync(a => a.AddressId == eventContext.AddressId);
+
+
+            EventDetialsViewModel evd = new EventDetialsViewModel()
+            {
+                deatilEvent = eventContext,
+                host = eventHost,
+                address = eventAddress,
+
+            };
+
+            return View(evd);
         }
 
         // GET: Event/Create
@@ -132,12 +146,30 @@ namespace Event_App.Controllers
                 return NotFound();
             }
 
-            var @event = await _context.Event.FindAsync(id);
-            if (@event == null)
+            var eventContext = await _context.Event
+                    .FindAsync(id);
+
+            if (eventContext == null)
             {
                 return NotFound();
             }
-            return View(@event);
+
+            var eventHost = await _context.Person
+                    .FirstOrDefaultAsync(m => m.PersonId == eventContext.PersonId);
+            var eventAddress = await _context.Address
+                    .FirstOrDefaultAsync(a => a.AddressId == eventContext.AddressId);
+
+
+            EventDetialsViewModel evd = new EventDetialsViewModel()
+            {
+                deatilEvent = eventContext,
+                host = eventHost,
+                address = eventAddress,
+                Interests = _context.Interest.ToList()
+
+            };
+
+            return View(evd);
         }
 
         // POST: Event/Edit/5
@@ -145,23 +177,34 @@ namespace Event_App.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("EventId,IdentityUserId,EventName,Venue,InterestId,EventDate,EventDescription,IsPrivate,IsVirtual")] Event @event)
+        public async Task<IActionResult> Edit(int id, Event editEvent, Address address)
         {
-            if (id != @event.EventId)
+            if (id != editEvent.EventId)
             {
-                return NotFound();
+              return NotFound();
             }
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(@event);
-                    await _context.SaveChangesAsync();
+
+                    if (editEvent.IsVirtual == false) //this will save api calls cost $$$$ 
+                    {
+                        address = await _geocoding.GetGeoCoding(address);
+                    }
+
+                    editEvent.AddressId = address.AddressId;
+
+                    _context.Update(address);
+                    _context.Update(editEvent);
+                    _context.SaveChanges();
+
+                    return RedirectToAction(nameof(Index));
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!EventExists(@event.EventId))
+                    if (!EventExists(editEvent.EventId))
                     {
                         return NotFound();
                     }
@@ -172,7 +215,7 @@ namespace Event_App.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(@event);
+            return View(editEvent);
         }
 
         // GET: Event/Delete/5

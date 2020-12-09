@@ -1,4 +1,4 @@
-﻿@model Event_App.Models.Event
+﻿@model Event_App.Models.EventDetialsViewModel
 
 @{
     ViewData["Title"] = "Edit";
@@ -9,56 +9,111 @@
 
 <h4>Event</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
+<div class="container">
+       
+    <form asp-action="Edit">
+        <div class="row">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="EventId" />
-            <div class="form-group">
-                <label asp-for="PersonId" class="control-label"></label>
-                <input asp-for="PersonId" class="form-control" />
-                <span asp-validation-for="PersonId" class="text-danger"></span>
+            <input type="hidden" asp-for="deatilEvent.EventId" />
+            <input type="hidden" asp-for="deatilEvent.AddressId" />
+            <input type="hidden" asp-for="deatilEvent.PersonId" />
+            
+            <input type="hidden" asp-for="host.IdentityUserId" />
+            <input type="hidden" asp-for="host.PersonId" />
+            <input type="hidden" asp-for="host.FirstName" />
+            <input type="hidden" asp-for="host.LastName" />
+            <input type="hidden" asp-for="host.FullName" />
+            <input type="hidden" asp-for="host.Interest" />
+            <input type="hidden" asp-for="host.ZipCode" />
+
+            <input type="hidden" asp-for="address.AddressId" />
+            <input type="hidden" asp-for="address.Latitude" />
+            <input type="hidden" asp-for="address.Longitude" />
+            
+
+            <div class="col-md-6">
+
+                <div class="form-group">
+                    <label asp-for="deatilEvent.EventName" class="control-label"></label>
+                    <input asp-for="deatilEvent.EventName" class="form-control" />
+                    <span asp-validation-for="deatilEvent.EventName" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="deatilEvent.InterestId" class="control-label"> Interest </label>
+                    <select asp-for="deatilEvent.InterestId" class="form-control" asp-items='new SelectList(Model.Interests, "InterestId", "InterestType")'></select>
+                    <span asp-validation-for="deatilEvent.InterestId" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="deatilEvent.EventDate" class="control-label"></label>
+                    <input asp-for="deatilEvent.EventDate" class="form-control" />
+                    <span asp-validation-for="deatilEvent.EventDate" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="deatilEvent.EventDescription" class="control-label"></label>
+                    <input asp-for="deatilEvent.EventDescription" class="form-control" />
+                    <span asp-validation-for="deatilEvent.EventDescription" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="deatilEvent.EventUrl" class="control-label"></label>
+                    <input asp-for="deatilEvent.EventUrl" class="form-control" />
+                    <span asp-validation-for="deatilEvent.EventUrl" class="text-danger"></span>
+                </div>
+
+                <div class="form-group form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" asp-for="deatilEvent.IsPrivate" /> @Html.DisplayNameFor(model => model.deatilEvent.IsPrivate)
+                    </label>
+                </div>
+
+                <div class="form-group form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" asp-for="deatilEvent.IsVirtual" /> @Html.DisplayNameFor(model => model.deatilEvent.IsVirtual)
+                    </label>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="EventName" class="control-label"></label>
-                <input asp-for="EventName" class="form-control" />
-                <span asp-validation-for="EventName" class="text-danger"></span>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="address.Venue" class="control-label">Venue Name</label>
+                    <input asp-for="address.Venue" class="form-control" />
+                    <span asp-validation-for="address.Venue" class="text-danger"></span>
+
+                </div>
+                <div class="form-group">
+                    <label asp-for="address.Street" class="control-label"></label>
+                    <input asp-for="address.Street" class="form-control" />
+                    <span asp-validation-for="address.Street" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="address.City" class="control-label"></label>
+                    <input asp-for="address.City" class="form-control" />
+                    <span asp-validation-for="address.City" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="address.State" class="control-label"></label>
+                    <input asp-for="address.State" class="form-control" />
+                    <span asp-validation-for="address.State" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="address.ZipCode" class="control-label"></label>
+                    <input asp-for="address.ZipCode" class="form-control" />
+                    <span asp-validation-for="address.ZipCode" class="text-danger"></span>
+                </div>
+
+
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Address" class="control-label"></label>
-                <input asp-for="Address" class="form-control" />
-                <span asp-validation-for="Address" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="InterestId" class="control-label"></label>
-                <input asp-for="InterestId" class="form-control" />
-                <span asp-validation-for="InterestId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EventDate" class="control-label"></label>
-                <input asp-for="EventDate" class="form-control" />
-                <span asp-validation-for="EventDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EventDescription" class="control-label"></label>
-                <input asp-for="EventDescription" class="form-control" />
-                <span asp-validation-for="EventDescription" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsPrivate" /> @Html.DisplayNameFor(model => model.IsPrivate)
-                </label>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsVirtual" /> @Html.DisplayNameFor(model => model.IsVirtual)
-                </label>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
+    </form>
+
+        </div>
+    
+    
 </div>
 
 <div>

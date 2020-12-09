@@ -14,6 +14,7 @@ namespace Event_App.Services
         }
         static DateTimeOffset dateOffsetValue;
         static DateTimeFormatInfo dateTimeFormats;
+
         ////////////////////////////////////////////
         /// DROP ME INTO THE CONTORLLER
         /// private DayOfWeek Today = DateTime.Today.DayOfWeek;
