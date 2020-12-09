@@ -185,8 +185,25 @@ namespace Event_App.Controllers
         {
             var newFriend = _context.Person.Where(p => p.PersonId == id).FirstOrDefault();
             Friends friend = new Friends();
-            friend.PersonId = id;
-            friend.IdentityUserId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            friend.PersonId2 = id;
+            var selfId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            Person self = _context.Person.Where(s => s.IdentityUserId == selfId).FirstOrDefault();
+            friend.PersonId1 = self.PersonId;
+            friend.isPending = true;
+            self.pendingFriends.Add(newFriend);
+        }
+
+        public void AcceptFriendRequest(Friends friend)
+        {
+            friend.isPending = false;
+            friend.isAccepted = true;
+            Person self = _context.Person.Where(p => p.PersonId == friend.PersonId1).FirstOrDefault();
+            Person newFriend = _context.Person.Where(p => p.PersonId == friend.PersonId2).FirstOrDefault();
+            self.pendingFriends.Remove(newFriend);
+            newFriend.pendingFriends.Remove(self);
+            self.acceptedFriends.Add(newFriend);
+            newFriend.acceptedFriends.Add(self);
+
         }
 
      

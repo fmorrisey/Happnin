@@ -46,5 +46,9 @@ namespace Event_App.Models
         [Column("Interest")]
         [Display(Name = "Interest")]
         public string Interest { get; set; }
+        [NotMapped]
+        public List<Person> pendingFriends { get; set; }
+        [NotMapped]
+        public List<Person> acceptedFriends { get; set; }
     }
 }
