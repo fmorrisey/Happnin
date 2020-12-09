@@ -9,16 +9,19 @@ using Event_App.Data;
 using Event_App.Models;
 using System.Security.Claims;
 using Event_App.Controllers;
+using Event_App.Services;
 
 namespace Event_App.Controllers
 {
     public class PersonController : Controller
     {
         private readonly ApplicationDbContext _context;
-
-        public PersonController(ApplicationDbContext context)
+        private Geocoding _geocoding;
+        public PersonController(ApplicationDbContext context, Geocoding geocoding)
         {
             _context = context;
+            _geocoding = geocoding;
+
         }
 
         // GET: Person
@@ -75,10 +78,12 @@ namespace Event_App.Controllers
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             person.IdentityUserId = userId;
-            
 
+            person = await _geocoding.GetGeoCoding(person);
             try
             {
+
+                _context.Person.Add(person);
 
                 _context.Add(person);
                 person.IdentityUserId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -127,6 +132,9 @@ namespace Event_App.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Person person)
         {
+            //var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            //person.IdentityUserId = userId;
+
             if (id != person.PersonId)
             {
                 return NotFound();
@@ -150,7 +158,7 @@ namespace Event_App.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Details));
             }
             ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", person.IdentityUserId);
             return View(person);

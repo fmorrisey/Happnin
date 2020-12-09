@@ -259,6 +259,12 @@ namespace Event_App.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
+                    b.Property<double>("Latitude")
+                        .HasColumnType("float");
+
+                    b.Property<double>("Longitude")
+                        .HasColumnType("float");
+
                     b.Property<int>("ZipCode")
                         .HasColumnType("int");
 
@@ -298,8 +304,8 @@ namespace Event_App.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "4922ece0-d828-4401-bdc0-5293893f056a",
-                            ConcurrencyStamp = "cd5d53db-1885-4e9f-83c7-9ee75aec19af",
+                            Id = "7706ef73-64ff-4fec-9d2b-7164d6cc5d10",
+                            ConcurrencyStamp = "db17c453-1499-4603-9e76-9a27e3647621",
                             Name = "Person",
                             NormalizedName = "PERSON"
                         });
