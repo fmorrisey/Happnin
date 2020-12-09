@@ -128,6 +128,9 @@ namespace Event_App.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Person person)
         {
+            //var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            //person.IdentityUserId = userId;
+
             if (id != person.PersonId)
             {
                 return NotFound();
@@ -151,7 +154,7 @@ namespace Event_App.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Details));
             }
             ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", person.IdentityUserId);
             return View(person);
