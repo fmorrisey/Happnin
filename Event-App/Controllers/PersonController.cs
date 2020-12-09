@@ -75,6 +75,7 @@ namespace Event_App.Controllers
             if (ModelState.IsValid)
             {
                 _context.Add(person);
+                person.IdentityUserId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
