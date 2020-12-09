@@ -18,16 +18,19 @@ namespace Event_App.Controllers
     {
         private readonly ApplicationDbContext _context;
         private Geocoding _geocoding;
+        private PublicEvents _publicEvents;
 
-        public EventController(ApplicationDbContext context, Geocoding geocoding)
+        public EventController(ApplicationDbContext context, Geocoding geocoding, PublicEvents publicEvents)
         {
             _context = context;
             _geocoding = geocoding;
+            _publicEvents = publicEvents;
         }
 
         // GET: Event
         public async Task<IActionResult> Index()
         {
+
             ViewData["APIkey"] = Services.AuthKeys.Google_API_Key;
 
             //queries
@@ -104,6 +107,8 @@ namespace Event_App.Controllers
             if (newEvent.IsVirtual == false) //this will save api calls cost $$$$ 
             {
                 venue = await _geocoding.GetGeoCoding(venue);
+                
+
             }
 
             _context.Update(venue);
@@ -208,6 +213,61 @@ namespace Event_App.Controllers
         {
             return _context.Event.Any(e => e.EventId == id);
         }
+
+       // [HttpPost]
+       // [ValidateAntiForgeryToken]
+        public ActionResult CreatePublicEvents(Event newEvent, Address address)
+        {
+
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var person = _context.Person.Where(person => person.IdentityUserId == userId).SingleOrDefault();
+
+            string eventUrl = _publicEvents.GetEvents(person);  
+            var result = new System.Net.WebClient().DownloadString(eventUrl);
+            dynamic eventList = JsonConvert.DeserializeObject(result);
+
+            foreach (var item in eventList._embedded.events)
+            {
+                var name = item.name;
+                var date = item.dates.start.localDate;
+
+                var venueName = item._embedded.venues[0].name;
+                var street = item._embedded.venues[0].address.line1;
+                var city = item._embedded.venues[0].city.name;
+                var state = item._embedded.venues[0].state.stateCode;
+                var zip = item._embedded.venues[0].postalCode;
+                var lng = item._embedded.venues[0].location.longitude;
+                var lat = item._embedded.venues[0].location.latitude;
+
+                address.AddressId = 0;
+                address.Venue = venueName;
+                address.Street = street;
+                address.City = city;
+                address.State = state;
+                address.ZipCode = zip;
+                address.Longitude = lng;
+                address.Latitude = lat;
+                _context.Add(address);
+                _context.SaveChanges();
+
+                newEvent.EventId = 0;
+                newEvent.EventName = name;
+                newEvent.EventDate = date;
+                newEvent.AddressId = address.AddressId;
+                newEvent.PersonId = 3;
+                newEvent.InterestId = 20;
+
+                //newEvent.Address = address.Venue;
+                _context.Add(newEvent);
+                _context.SaveChanges();
+
+                
+            }
+            return RedirectToAction(nameof(Index));
+
+        }
+
+
 
     }
 }

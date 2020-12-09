@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Event_App.Data;
 using Event_App.Models;
 using System.Security.Claims;
+using Event_App.Controllers;
 
 namespace Event_App.Controllers
 {
@@ -74,6 +75,7 @@ namespace Event_App.Controllers
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             person.IdentityUserId = userId;
+            
 
             try
             {
@@ -81,6 +83,9 @@ namespace Event_App.Controllers
                 _context.Add(person);
                 person.IdentityUserId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
                 await _context.SaveChangesAsync();
+
+                
+
                 return RedirectToAction(nameof(Details));
             }
             catch
