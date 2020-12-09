@@ -38,9 +38,6 @@ namespace Event_App.Models
             }
         }
 
-        [DataType(DataType.PostalCode)]
-        [Display(Name = "Zip Code")]
-        public int ZipCode { get; set; }
 
         [Required]
         [Column("Interest")]
@@ -50,5 +47,12 @@ namespace Event_App.Models
         public List<Person> pendingFriends { get; set; }
         [NotMapped]
         public List<Person> acceptedFriends { get; set; }
+
+
+        [DataType(DataType.PostalCode)]
+        [Display(Name = "Zip Code")]
+        public int ZipCode { get; set; }
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
     }
 }

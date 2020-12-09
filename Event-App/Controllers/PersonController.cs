@@ -8,16 +8,19 @@ using Microsoft.EntityFrameworkCore;
 using Event_App.Data;
 using Event_App.Models;
 using System.Security.Claims;
+using Event_App.Services;
 
 namespace Event_App.Controllers
 {
     public class PersonController : Controller
     {
         private readonly ApplicationDbContext _context;
-
-        public PersonController(ApplicationDbContext context)
+        private Geocoding _geocoding;
+        public PersonController(ApplicationDbContext context, Geocoding geocoding)
         {
             _context = context;
+            _geocoding = geocoding;
+
         }
 
         // GET: Person
@@ -75,8 +78,11 @@ namespace Event_App.Controllers
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             person.IdentityUserId = userId;
 
+            person = await _geocoding.GetGeoCoding(person);
             try
             {
+
+                _context.Person.Add(person);
 
                 _context.Add(person);
                 person.IdentityUserId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
