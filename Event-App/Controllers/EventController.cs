@@ -150,9 +150,9 @@ namespace Event_App.Controllers
             var eventContext = await _context.Event
                     .FindAsync(id);
 
-            if (eventContext == null)
+            if (eventContext == null || eventContext.InterestId==20)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Index));
             }
 
             var eventHost = await _context.Person
@@ -184,6 +184,8 @@ namespace Event_App.Controllers
             {
                 return NotFound();
             }
+
+            
 
             if (ModelState.IsValid)
             {
