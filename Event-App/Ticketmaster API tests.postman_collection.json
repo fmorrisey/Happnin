@@ -1,0 +1,239 @@
+{
+	"info": {
+		"_postman_id": "b4fac281-8753-4cfa-a2d5-c1e25d48b484",
+		"name": "Ticketmaster API tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "https://maps.googleapis.com/maps/api/geocode/json?address=53092&region=us&key=AIzaSyCrZa-p1sVQEWYQhN2vRdCQwEpadzlcq2k",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://maps.googleapis.com/maps/api/geocode/json?region=us&key=AIzaSyCrZa-p1sVQEWYQhN2vRdCQwEpadzlcq2k&address=53092",
+					"protocol": "https",
+					"host": [
+						"maps",
+						"googleapis",
+						"com"
+					],
+					"path": [
+						"maps",
+						"api",
+						"geocode",
+						"json"
+					],
+					"query": [
+						{
+							"key": "classificationName",
+							"value": "music",
+							"disabled": true
+						},
+						{
+							"key": "region",
+							"value": "us"
+						},
+						{
+							"key": "key",
+							"value": "AIzaSyCrZa-p1sVQEWYQhN2vRdCQwEpadzlcq2k"
+						},
+						{
+							"key": "address",
+							"value": "53092"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://app.ticketmaster.com/discovery/v2/events?radius=250&locale=*&dmaId=335&endDateTime=2021-09-01T08:18:00Z&apikey=A2Blk5THvDsQ6j6VQEQKO84ccDVbuwIG",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://app.ticketmaster.com/discovery/v2/events?radius=250&locale=*&dmaId=335&endDateTime=2021-09-01T08:18:00Z&apikey=A2Blk5THvDsQ6j6VQEQKO84ccDVbuwIG",
+					"protocol": "https",
+					"host": [
+						"app",
+						"ticketmaster",
+						"com"
+					],
+					"path": [
+						"discovery",
+						"v2",
+						"events"
+					],
+					"query": [
+						{
+							"key": "radius",
+							"value": "250"
+						},
+						{
+							"key": "locale",
+							"value": "*"
+						},
+						{
+							"key": "dmaId",
+							"value": "335"
+						},
+						{
+							"key": "endDateTime",
+							"value": "2021-09-01T08:18:00Z"
+						},
+						{
+							"key": "apikey",
+							"value": "A2Blk5THvDsQ6j6VQEQKO84ccDVbuwIG"
+						},
+						{
+							"key": "classificationName",
+							"value": "music",
+							"disabled": true
+						}
+					]
+				},
+				"description": "date filter on request"
+			},
+			"response": []
+		},
+		{
+			"name": "https://app.ticketmaster.com/discovery/v2/events.json?postalCode=60601&radius=500&unit=miles&apikey=A2Blk5THvDsQ6j6VQEQKO84ccDVbuwIG",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://app.ticketmaster.com/discovery/v2/events.json?radius=500&unit=miles&apikey=A2Blk5THvDsQ6j6VQEQKO84ccDVbuwIG&postalCode=60601",
+					"protocol": "https",
+					"host": [
+						"app",
+						"ticketmaster",
+						"com"
+					],
+					"path": [
+						"discovery",
+						"v2",
+						"events.json"
+					],
+					"query": [
+						{
+							"key": "classificationName",
+							"value": "music",
+							"disabled": true
+						},
+						{
+							"key": "radius",
+							"value": "500"
+						},
+						{
+							"key": "unit",
+							"value": "miles"
+						},
+						{
+							"key": "apikey",
+							"value": "A2Blk5THvDsQ6j6VQEQKO84ccDVbuwIG"
+						},
+						{
+							"key": "postalCode",
+							"value": "60601"
+						}
+					]
+				},
+				"description": "working postal code test\r\n"
+			},
+			"response": []
+		},
+		{
+			"name": "https://app.ticketmaster.com/discovery/v2/events.json?classificationName=music&postalCode=60001&radius=500&unit=miles&apikey=A2Blk5THvDsQ6j6VQEQKO84ccDVbuwIG",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://app.ticketmaster.com/discovery/v2/events.json?classificationName=music&postalCode=60001&radius=500&unit=miles&apikey=A2Blk5THvDsQ6j6VQEQKO84ccDVbuwIG",
+					"protocol": "https",
+					"host": [
+						"app",
+						"ticketmaster",
+						"com"
+					],
+					"path": [
+						"discovery",
+						"v2",
+						"events.json"
+					],
+					"query": [
+						{
+							"key": "classificationName",
+							"value": "music"
+						},
+						{
+							"key": "postalCode",
+							"value": "60001"
+						},
+						{
+							"key": "radius",
+							"value": "500"
+						},
+						{
+							"key": "unit",
+							"value": "miles"
+						},
+						{
+							"key": "apikey",
+							"value": "A2Blk5THvDsQ6j6VQEQKO84ccDVbuwIG"
+						}
+					]
+				},
+				"description": "failed postal code rquest"
+			},
+			"response": []
+		},
+		{
+			"name": "https://app.ticketmaster.com/discovery/v2/events.json?classificationName=music&apikey=A2Blk5THvDsQ6j6VQEQKO84ccDVbuwIG&postalCode=53092&radius=250",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://app.ticketmaster.com/discovery/v2/events.json?classificationName=music&apikey=A2Blk5THvDsQ6j6VQEQKO84ccDVbuwIG&postalCode=53092&radius=250",
+					"protocol": "https",
+					"host": [
+						"app",
+						"ticketmaster",
+						"com"
+					],
+					"path": [
+						"discovery",
+						"v2",
+						"events.json"
+					],
+					"query": [
+						{
+							"key": "classificationName",
+							"value": "music"
+						},
+						{
+							"key": "dma",
+							"value": "324",
+							"disabled": true
+						},
+						{
+							"key": "apikey",
+							"value": "A2Blk5THvDsQ6j6VQEQKO84ccDVbuwIG"
+						},
+						{
+							"key": "postalCode",
+							"value": "53092"
+						},
+						{
+							"key": "radius",
+							"value": "250"
+						}
+					]
+				},
+				"description": "initial zip code request - FAIL"
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
