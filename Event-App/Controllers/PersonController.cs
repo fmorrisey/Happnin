@@ -66,6 +66,8 @@ namespace Event_App.Controllers
         public IActionResult Create()
         {
             ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id");
+            Person person = new Person();
+            
             return View();
         }
 
