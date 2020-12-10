@@ -1,8 +1,6 @@
 ﻿using Event_App.Data;
 using Event_App.Models;
 using Event_App.Services;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
@@ -314,7 +312,7 @@ namespace Event_App.Controllers
         }
 
 
-        public async Task<ActionResult> Confirm(int id, Person person)
+        public async Task<ActionResult> Confirm(int id, Person person, Event eventDetails)
         {
 
             // Event findEventHost = _context.Event.Find(id);
@@ -323,12 +321,14 @@ namespace Event_App.Controllers
             //var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             //var person = await _context.Person.FindAsync(id);
 
+            eventDetails = await _context.Event
+                .FirstOrDefaultAsync(m => m.EventId == id);
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             person = _context.Person.Where(person => person.IdentityUserId == userId).FirstOrDefault();
             var email = this.User.Identity.Name.ToString();
             
 
-            await _mailKitService.SendEmail(person, email);
+            await _mailKitService.SendEmail(person, email, eventDetails);
 
             return RedirectToAction(nameof(Index));
         }
