@@ -4653,7 +4653,7 @@ input[type="button"].btn-block {
 }
 
 .navbar-light .navbar-brand {
-  color: #000;
+  color: white;
 }
 
 .navbar-light .navbar-brand:hover, .navbar-light .navbar-brand:focus {

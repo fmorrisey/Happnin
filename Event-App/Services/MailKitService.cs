@@ -64,7 +64,7 @@ namespace Event_App.Services
                         $"on {details.EventDate} \n" +
                         $"\n" +
                         $"Enjoy!\n" +
-                        $"Happnin\n" 
+                        $"Happnin'\n" 
                         
                        //somekind of confirm button here
             };

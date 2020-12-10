@@ -13,7 +13,7 @@
                     <form asp-action="Index" method="get">
                         <div class="form-actions no-color" style="">
 
-                            Find Event: <input type="text" style="width: 30%" name="SearchString" value="@ViewData["CurrentFilter"]" />
+                            <strong>Find Event: </strong><input type="text" style="width: 30%" name="SearchString" value="@ViewData["CurrentFilter"]" />&nbsp;
                             <input type="submit" value="Search" class="btn btn-secondary box" style=""/>
                             @*<a asp-action="Index">New Search</a>*@
 
@@ -44,7 +44,7 @@
                                     <div>
 
 
-                                        <p class="">
+                                        <p class="card-text">
                                             @eventCard.EventDate.Value.ToString("MMMM dd")<br />
                                             @eventCard.EventDate.Value.ToString("dddd h:mm tt")
                                         </p>
@@ -56,12 +56,15 @@
                                 <div class="col-7">
                                     <div>
 
-                                        <p class="card-text font-weight-bold">@Html.DisplayFor(modelItem => eventCard.Interest.InterestType)</p>
-                                        <h5 class="card-header-pills">
-                                            <a asp-action="Details" asp-route-id="@eventCard.EventId">
-                                                &nbsp;@Html.DisplayFor(modelItem => eventCard.EventName)
-                                            </a>
-                                        </h5>
+                                        <div class="card-text font-weight-bold">
+                                            &nbsp;@Html.DisplayFor(modelItem => eventCard.Interest.InterestType)
+
+                                            <h4 class="card-header-pills">
+                                                &nbsp;<a asp-action="Details" asp-route-id="@eventCard.EventId">
+                                                     @Html.DisplayFor(modelItem => eventCard.EventName)
+                                                </a>
+                                            </h4>
+                                        </div>
 
 
 

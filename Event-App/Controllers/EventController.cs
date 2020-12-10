@@ -308,7 +308,7 @@ namespace Event_App.Controllers
                 newEvent.EventName = name;
                 newEvent.EventDate = date;
                 newEvent.AddressId = address.AddressId;
-                newEvent.PersonId = 1;
+                newEvent.PersonId = 5;
                 newEvent.InterestId = 20;
                 newEvent.EventUrl = url;
 
