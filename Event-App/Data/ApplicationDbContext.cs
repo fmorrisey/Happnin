@@ -23,6 +23,8 @@ namespace Event_App.Data
 
         public DbSet<Address> Address { get; set; }
 
+        public DbSet<PeopleEvents> PeopleEvents { get; set; }
+
 
         
         protected override void OnModelCreating(ModelBuilder builder)
