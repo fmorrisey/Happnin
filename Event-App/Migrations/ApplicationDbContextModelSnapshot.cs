@@ -304,8 +304,8 @@ namespace Event_App.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "8969b814-29d4-419f-a5bb-0f342a6e9c15",
-                            ConcurrencyStamp = "6c795f33-fbd5-4d23-a95c-3b4c297d277b",
+                            Id = "a9dfbbf0-dab9-42ce-8eb1-8ca1be9d097e",
+                            ConcurrencyStamp = "1b8c9c02-761e-490d-9359-6ba92140c809",
                             Name = "Person",
                             NormalizedName = "PERSON"
                         });

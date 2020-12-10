@@ -14,7 +14,7 @@
     <div class="col-12">
         <div class="row">
             <div class="col-6">
-                <div class="card bg-light w-88 box" style="margin-right: 10px">
+                <div class="card bg-light w-88 box" style="margin-bottom: 15px">
                     <div class="card-header">
                         @if (Model.deatilEvent.IsPrivate == true)
                         {
@@ -74,48 +74,62 @@
 
                 </div>
                 <div>
-                    <strike>
-                        <a asp-action="Edit" asp-route-id="@Model.deatilEvent.EventId">Edit</a> |
-                        <a asp-action="Delete" asp-route-id="Model.deatilEvent.EventId">Delete</a>
-                    </strike>
+                    <div class="btn-group-toggle">
+                        <a asp-action="Confirm"
+                           asp-route-id="@Model.deatilEvent.EventId"
+                           class="btn btn-primary"
+                           onclick="document.location.reload(true)">
+                            Confirm
+                        </a>
 
-                    
+                        <a asp-action="Edit" asp-route-id="@Model.deatilEvent.EventId"
+                            class="btn btn-secondary">
+                            Edit
+                        </a>
+                        <a asp-action="Delete" asp-route-id="@Model.deatilEvent.EventId"
+                           class="btn btn-danger">
+                           Delete
+                        </a>
+                    </div>
 
 
-                    <a asp-action="Confirm" 
-                       asp-route-id="@Model.deatilEvent.EventId" onclick="document.location.reload(true)">Confirm</a>
-                   
-                    <button type="button"
-                           value="Go Somewhere Else"
-                           onclick="location.href='@Url.Action("Confirm", "Event")'">CLick</button>
 
-                    <button @*asp-action="Confirm"*@ class="btn btn-primary"
-                            onClick="Confirm(); document.location.reload(true);"
-                            style="float: right; margin-bottom: 10px;">
-                        Attend Event
-                    </button>
 
-                    <script>
-                        function Confirm() {
-                            $.ajax({
-                                type: "POST",
-                                url: "/Event/Confirm/@Model.deatilEvent.EventId",
-                                async: true,
-                                success: function (msg) {
-                                    ServiceSucceeded(msg);
-                                },
-                                error: function () {
-                                    return "error";
-                                }
-                            });
-                        }
-                    </script>
+
+
+                    <!--<button type="button"
+           value="Go Somewhere Else"
+           onclick="location.href='@Url.Action("Confirm", "Event")'">CLick</button>
+
+    <button-->
+                    @*asp-action="Confirm"*@
+                    <!--class="btn btn-primary"
+            onClick="Confirm(); document.location.reload(true);"
+            style="float: right; margin-bottom: 10px;">
+        Attend Event
+    </button>
+
+    <script>
+        function Confirm() {
+            $.ajax({
+                type: "POST",
+                url: "/Event/Confirm/@Model.deatilEvent.EventId",
+                async: true,
+                success: function (msg) {
+                    ServiceSucceeded(msg);
+                },
+                error: function () {
+                    return "error";
+                }
+            });
+        }
+    </script>-->
 
                 </div>
             </div>
 
             <div class="col-6">
-                <div class="card badge-light w-88 box" style="margin-right: 10px">
+                <div class="card badge-light w-88 box" style="margin-bottom: 15px">
                     <div class="card-header">
 
                         <h4 class="card-title">Host: @Html.DisplayFor(model => model.host.FullName)</h4>
@@ -135,8 +149,33 @@
 
                     </div>
                 </div>
+
+                <div class="card box" id="map" style="height: 200px; width: 100%;">
+                    <script>
+                        var map;
+                        var marker;
+                        function initMap() {
+
+                            map = new google.maps.Map(document.getElementById("map"), {
+                                zoom: 14,
+                                center: { lat: @Model.address.Latitude, lng: @Model.address.Longitude },
+                                map: map
+                            });
+
+                            marker = new google.maps.Marker({
+                                position:{ lat: @Model.address.Latitude, lng: @Model.address.Longitude },
+                                map: map
+                            });
+                        }
+                    </script>
+
+                    <script src="https://maps.googleapis.com/maps/api/js?key=@ViewData["APIkey"]&callback=initMap"
+                            async defer></script>
+
+                </div>
+
+                </div>
             </div>
-        </div>
     </div>
    
 </div>
