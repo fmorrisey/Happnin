@@ -153,7 +153,7 @@ namespace Event_App.Controllers
                     .FirstOrDefaultAsync(m => m.PersonId == eventContext.PersonId);
             var eventAddress = await _context.Address
                     .FirstOrDefaultAsync(a => a.AddressId == eventContext.AddressId);
-
+           
 
             EventDetialsViewModel evd = new EventDetialsViewModel()
             {
@@ -172,38 +172,39 @@ namespace Event_App.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Event editEvent, Address address)
+        public async Task<IActionResult> Edit(Event deatilEvent, Address address)
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var person = _context.Person.Where(person => person.IdentityUserId == userId).SingleOrDefault();
-            
-            if (id != editEvent.EventId)
-            {
-                return RedirectToAction(nameof(Index));
-            }
+            //editEvent = _context.Event.Where(editEvent => editEvent.EventId == id).SingleOrDefault();
+            //if (id != editEvent.EventId)
+            //{
+            //    return RedirectToAction(nameof(Index));
+            //}
 
             if (ModelState.IsValid)
             {
                 try
                 {
+                    _context.Update(deatilEvent);
+                    _context.SaveChanges();
 
-                    if (editEvent.IsVirtual == false) //this will save api calls cost $$$$ 
+                    if (deatilEvent.IsVirtual == false) //this will save api calls cost $$$$ 
                     {
                         address = await _geocoding.GetGeoCoding(address);
                     }
 
-                    editEvent.AddressId = address.AddressId;
+                    deatilEvent.AddressId = address.AddressId;
 
                     _context.Update(address);
                     _context.SaveChanges();
-                    _context.Update(editEvent);
-                    _context.SaveChanges();
+                   
 
                     return RedirectToAction(nameof(Index));
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!EventExists(editEvent.EventId))
+                    if (!EventExists(deatilEvent.EventId))
                     {
                         return NotFound();
                     }
@@ -214,7 +215,7 @@ namespace Event_App.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(editEvent);
+            return View(deatilEvent);
         }
 
         // GET: Event/Delete/5
