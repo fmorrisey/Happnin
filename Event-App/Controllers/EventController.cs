@@ -226,13 +226,23 @@ namespace Event_App.Controllers
         // GET: Event/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var person = _context.Person.Where(person => person.IdentityUserId == userId).SingleOrDefault();
+            var deleteEvent = _context.Event.Where(deleteEvent => deleteEvent.EventId == id).SingleOrDefault();
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Index));
             }
+
 
             var @event = await _context.Event
                 .FirstOrDefaultAsync(m => m.EventId == id);
+
+            if (deleteEvent == null || deleteEvent.InterestId == 20 || deleteEvent.PersonId != person.PersonId)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
             if (@event == null)
             {
                 return NotFound();
