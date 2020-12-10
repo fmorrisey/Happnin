@@ -1,6 +1,7 @@
 ﻿using Event_App.Data;
 using Event_App.Models;
 using Event_App.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
@@ -16,12 +17,15 @@ namespace Event_App.Controllers
         private readonly ApplicationDbContext _context;
         private Geocoding _geocoding;
         private PublicEvents _publicEvents;
+        private MailKitService _mailKitService;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public EventController(ApplicationDbContext context, Geocoding geocoding, PublicEvents publicEvents)
+        public EventController(ApplicationDbContext context, Geocoding geocoding, PublicEvents publicEvents, MailKitService mailKitService)
         {
             _context = context;
             _geocoding = geocoding;
             _publicEvents = publicEvents;
+            _mailKitService = mailKitService;
         }
 
         // GET: Event
@@ -308,10 +312,15 @@ namespace Event_App.Controllers
         }
 
 
-        public ActionResult Confirm(int id)
+        public async Task<ActionResult> Confirm(int id)
         {
-            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var person = _context.Person.Where(person => person.IdentityUserId == userId).SingleOrDefault();
+
+            Event findEventHost = _context.Event.Find(id);
+            var person = _context.Person.Where(p => p.PersonId == findEventHost.PersonId);
+            string UserEmail = await UserManager.GetEmailAsync(User.Identity.GetUserId());
+
+            await _mailKitService.SendEmail(person, email);
+
 
             return RedirectToAction(nameof(Index));
         }

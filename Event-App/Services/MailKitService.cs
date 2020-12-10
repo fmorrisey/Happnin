@@ -13,9 +13,9 @@ namespace Event_App.Services
 {
     public class MailKitService
     {
-        public async Task SendEmail(Person person)
+        public async Task SendEmail(Person person, string email)
         {
-            await EmailContestantAsync(person);
+            await EmailContestantAsync(person, email);
         }
 
         /// <summary>
@@ -23,7 +23,7 @@ namespace Event_App.Services
         /// </summary>
         /// <param name="person">User's Email</param>
         /// <returns></returns>
-        private async Task EmailContestantAsync(Person person)
+        private async Task EmailContestantAsync(Person person, string email)
         {
             const string GMailAccount = "throwmeawaybreakingben@gmail.com";
 
@@ -53,7 +53,7 @@ namespace Event_App.Services
 
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress("BEN BREAKING", "throwmeawaybreakingben@gmail.com"));
-            message.To.Add(new MailboxAddress($"{person.FirstName} {person.LastName}", "wakihe4437@50000z.com"));
+            message.To.Add(new MailboxAddress($"{person.FirstName} {person.LastName}", email));
             message.Subject = "WINNNNERERRRR";
 
             message.Body = new TextPart("plain")
