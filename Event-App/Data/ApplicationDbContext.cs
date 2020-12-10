@@ -23,8 +23,10 @@ namespace Event_App.Data
 
         public DbSet<Address> Address { get; set; }
 
+        //public DbSet<PeopleEvents> PeopleEvents { get; set; }
 
-        
+        //public object AspNetUsers { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

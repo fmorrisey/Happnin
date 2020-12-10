@@ -1,6 +1,8 @@
 ﻿using Event_App.Data;
 using Event_App.Models;
 using Event_App.Services;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
@@ -16,12 +18,15 @@ namespace Event_App.Controllers
         private readonly ApplicationDbContext _context;
         private Geocoding _geocoding;
         private PublicEvents _publicEvents;
+        private MailKitService _mailKitService;
 
-        public EventController(ApplicationDbContext context, Geocoding geocoding, PublicEvents publicEvents)
+        public EventController(ApplicationDbContext context, Geocoding geocoding, 
+            PublicEvents publicEvents, MailKitService mailKitService)
         {
             _context = context;
             _geocoding = geocoding;
             _publicEvents = publicEvents;
+            _mailKitService = mailKitService;
         }
 
         // GET: Event
@@ -49,6 +54,7 @@ namespace Event_App.Controllers
         // GET: Event/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            ViewData["APIkey"] = Services.AuthKeys.Google_API_Key;
             if (id == null)
             {
                 return NotFound();
@@ -60,6 +66,7 @@ namespace Event_App.Controllers
             {
                 return NotFound();
             }
+
 
             var eventHost = await _context.Person
                     .FirstOrDefaultAsync(m => m.PersonId == eventContext.PersonId);
@@ -135,7 +142,7 @@ namespace Event_App.Controllers
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var person = _context.Person.Where(person => person.IdentityUserId == userId).SingleOrDefault();
-            
+
             if (id == null)
             {
                 return RedirectToAction(nameof(Index));
@@ -144,7 +151,7 @@ namespace Event_App.Controllers
             var eventContext = await _context.Event
                     .FindAsync(id);
 
-            if (eventContext == null || eventContext.InterestId==20 || eventContext.PersonId != person.PersonId)
+            if (eventContext == null || eventContext.InterestId == 20 || eventContext.PersonId != person.PersonId)
             {
                 return RedirectToAction(nameof(Index));
             }
@@ -277,7 +284,7 @@ namespace Event_App.Controllers
                 var zip = item._embedded.venues[0].postalCode;
                 var lng = item._embedded.venues[0].location.longitude;
                 var lat = item._embedded.venues[0].location.latitude;
-                
+
                 address.AddressId = 0;
                 address.Venue = venueName;
                 address.Street = street;
@@ -308,10 +315,21 @@ namespace Event_App.Controllers
         }
 
 
-        public ActionResult Confirm(int id)
+        public async Task<ActionResult> Confirm(int id, Person person)
         {
+
+            // Event findEventHost = _context.Event.Find(id);
+            //  var person = _context.Person.Where(p => p.PersonId == findEventHost.PersonId);
+
+            //var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            //var person = await _context.Person.FindAsync(id);
+
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var person = _context.Person.Where(person => person.IdentityUserId == userId).SingleOrDefault();
+            person = _context.Person.Where(person => person.IdentityUserId == userId).FirstOrDefault();
+            var email = this.User.Identity.Name.ToString();
+            
+
+            await _mailKitService.SendEmail(person, email);
 
             return RedirectToAction(nameof(Index));
         }
