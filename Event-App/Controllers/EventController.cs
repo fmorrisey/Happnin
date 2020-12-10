@@ -179,15 +179,15 @@ namespace Event_App.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Event deatilEvent, Address address)
+        public async Task<IActionResult> Edit(int id, Event deatilEvent, Address address)
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var person = _context.Person.Where(person => person.IdentityUserId == userId).SingleOrDefault();
             //editEvent = _context.Event.Where(editEvent => editEvent.EventId == id).SingleOrDefault();
-            //if (id != editEvent.EventId)
-            //{
-            //    return RedirectToAction(nameof(Index));
-            //}
+            if (id != deatilEvent.EventId)
+            {
+                return RedirectToAction(nameof(Index));
+            }
 
             if (ModelState.IsValid)
             {
