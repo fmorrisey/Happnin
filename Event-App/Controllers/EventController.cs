@@ -269,6 +269,7 @@ namespace Event_App.Controllers
             {
                 var name = item.name;
                 var date = item.dates.start.localDate;
+                var url = item.url;
 
                 var venueName = item._embedded.venues[0].name;
                 var street = item._embedded.venues[0].address.line1;
@@ -277,7 +278,7 @@ namespace Event_App.Controllers
                 var zip = item._embedded.venues[0].postalCode;
                 var lng = item._embedded.venues[0].location.longitude;
                 var lat = item._embedded.venues[0].location.latitude;
-
+                
                 address.AddressId = 0;
                 address.Venue = venueName;
                 address.Street = street;
@@ -295,6 +296,7 @@ namespace Event_App.Controllers
                 newEvent.AddressId = address.AddressId;
                 newEvent.PersonId = 1;
                 newEvent.InterestId = 20;
+                newEvent.EventUrl = url;
 
                 //newEvent.Address = address.Venue;
                 _context.Add(newEvent);
