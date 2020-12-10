@@ -29,8 +29,8 @@ namespace Event_App.Services
 
             var clientSecrets = new ClientSecrets
             {
-                ClientId = Services.AuthKeys.Google_Client,
-                ClientSecret = Services.AuthKeys.Google_OAuth,
+                ClientId = Services.AuthKeys.Google_OAuth,
+                ClientSecret = Services.AuthKeys.Google_Client,
             };
 
             var codeFlow = new GoogleAuthorizationCodeFlow(new GoogleAuthorizationCodeFlow.Initializer
@@ -52,14 +52,13 @@ namespace Event_App.Services
             var oauth2 = new SaslMechanismOAuth2(credential.UserId, credential.Token.AccessToken);
 
             var message = new MimeMessage();
-            message.From.Add(new MailboxAddress("BEN BREAKING", "throwmeawaybreakingben@gmail.com"));
-            message.To.Add(new MailboxAddress($"{person.FirstName} {person.LastName}", email));
-            message.Subject = "WINNNNERERRRR";
+            message.From.Add(new MailboxAddress("Happnin", "Confirmation@Happnin.com"));
+            message.To.Add(new MailboxAddress($"{email}", email));
+            message.Subject = "Please Confirm";
 
             message.Body = new TextPart("plain")
             {
-                Text = $"Congratulations {person.FirstName} {person.LastName} \n" +
-                        $" You have won the {person.FirstName} {person.LastName} Sweepstakes! \n" 
+                Text = "this email confirms that you are registered for this event!" 
                        //somekind of confirm button here
             };
 

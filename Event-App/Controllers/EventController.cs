@@ -20,7 +20,8 @@ namespace Event_App.Controllers
         private PublicEvents _publicEvents;
         private MailKitService _mailKitService;
 
-        public EventController(ApplicationDbContext context, Geocoding geocoding, PublicEvents publicEvents, MailKitService mailKitService)
+        public EventController(ApplicationDbContext context, Geocoding geocoding, 
+            PublicEvents publicEvents, MailKitService mailKitService)
         {
             _context = context;
             _geocoding = geocoding;
@@ -65,6 +66,7 @@ namespace Event_App.Controllers
             {
                 return NotFound();
             }
+
 
             var eventHost = await _context.Person
                     .FirstOrDefaultAsync(m => m.PersonId == eventContext.PersonId);
@@ -312,16 +314,19 @@ namespace Event_App.Controllers
         }
 
 
-        public async Task<ActionResult> Confirm(int id)
+        public async Task<ActionResult> Confirm(int id, Person person)
         {
 
-           // Event findEventHost = _context.Event.Find(id);
-          //  var person = _context.Person.Where(p => p.PersonId == findEventHost.PersonId);
+            // Event findEventHost = _context.Event.Find(id);
+            //  var person = _context.Person.Where(p => p.PersonId == findEventHost.PersonId);
 
             //var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            //var person = await _context.Person.FindAsync(id);
+
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            person = _context.Person.Where(person => person.IdentityUserId == userId).FirstOrDefault();
             var email = this.User.Identity.Name.ToString();
-            var person = _context.Person.Where(person => person.IdentityUserId == userId).SingleOrDefault();
+            
 
             await _mailKitService.SendEmail(person, email);
 
