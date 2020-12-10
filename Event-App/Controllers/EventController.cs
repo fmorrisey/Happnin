@@ -1,6 +1,7 @@
 ﻿using Event_App.Data;
 using Event_App.Models;
 using Event_App.Services;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -18,7 +19,6 @@ namespace Event_App.Controllers
         private Geocoding _geocoding;
         private PublicEvents _publicEvents;
         private MailKitService _mailKitService;
-        private readonly UserManager<ApplicationUser> _userManager;
 
         public EventController(ApplicationDbContext context, Geocoding geocoding, PublicEvents publicEvents, MailKitService mailKitService)
         {
@@ -140,7 +140,7 @@ namespace Event_App.Controllers
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var person = _context.Person.Where(person => person.IdentityUserId == userId).SingleOrDefault();
-            
+
             if (id == null)
             {
                 return RedirectToAction(nameof(Index));
@@ -149,7 +149,7 @@ namespace Event_App.Controllers
             var eventContext = await _context.Event
                     .FindAsync(id);
 
-            if (eventContext == null || eventContext.InterestId==20 || eventContext.PersonId != person.PersonId)
+            if (eventContext == null || eventContext.InterestId == 20 || eventContext.PersonId != person.PersonId)
             {
                 return RedirectToAction(nameof(Index));
             }
@@ -181,7 +181,7 @@ namespace Event_App.Controllers
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var person = _context.Person.Where(person => person.IdentityUserId == userId).SingleOrDefault();
-            
+
             if (id != editEvent.EventId)
             {
                 return RedirectToAction(nameof(Index));
@@ -281,7 +281,7 @@ namespace Event_App.Controllers
                 var zip = item._embedded.venues[0].postalCode;
                 var lng = item._embedded.venues[0].location.longitude;
                 var lat = item._embedded.venues[0].location.latitude;
-                
+
                 address.AddressId = 0;
                 address.Venue = venueName;
                 address.Street = street;
@@ -315,12 +315,15 @@ namespace Event_App.Controllers
         public async Task<ActionResult> Confirm(int id)
         {
 
-            Event findEventHost = _context.Event.Find(id);
-            var person = _context.Person.Where(p => p.PersonId == findEventHost.PersonId);
-            string UserEmail = await UserManager.GetEmailAsync(User.Identity.GetUserId());
+           // Event findEventHost = _context.Event.Find(id);
+          //  var person = _context.Person.Where(p => p.PersonId == findEventHost.PersonId);
+
+            //var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var email = this.User.Identity.Name.ToString();
+            var person = _context.Person.Where(person => person.IdentityUserId == userId).SingleOrDefault();
 
             await _mailKitService.SendEmail(person, email);
-
 
             return RedirectToAction(nameof(Index));
         }
