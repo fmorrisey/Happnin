@@ -142,6 +142,9 @@ namespace Event_App.Controllers
         // GET: Event/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var person = _context.Person.Where(person => person.IdentityUserId == userId).SingleOrDefault();
+            
             if (id == null)
             {
                 return NotFound();
@@ -150,7 +153,7 @@ namespace Event_App.Controllers
             var eventContext = await _context.Event
                     .FindAsync(id);
 
-            if (eventContext == null || eventContext.InterestId==20)
+            if (eventContext == null || eventContext.InterestId==20 || eventContext.PersonId != person.PersonId)
             {
                 return RedirectToAction(nameof(Index));
             }
