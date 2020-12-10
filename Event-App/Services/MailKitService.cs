@@ -13,9 +13,9 @@ namespace Event_App.Services
 {
     public class MailKitService
     {
-        public async Task SendEmail(Person person, string email)
+        public async Task SendEmail(Person person, string email, Event details)
         {
-            await EmailContestantAsync(person, email);
+            await EmailContestantAsync(person, email, details);
         }
 
         /// <summary>
@@ -23,7 +23,7 @@ namespace Event_App.Services
         /// </summary>
         /// <param name="person">User's Email</param>
         /// <returns></returns>
-        private async Task EmailContestantAsync(Person person, string email)
+        private async Task EmailContestantAsync(Person person, string email, Event details)
         {
             const string GMailAccount = "throwmeawaybreakingben@gmail.com";
 
@@ -53,12 +53,19 @@ namespace Event_App.Services
 
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress("Happnin", "Confirmation@Happnin.com"));
-            message.To.Add(new MailboxAddress($"{email}", email));
+            message.To.Add(new MailboxAddress($"{person.FullName}", email));
             message.Subject = "Please Confirm";
 
             message.Body = new TextPart("plain")
             {
-                Text = "this email confirms that you are registered for this event!" 
+                Text = $"Hello {person.FirstName} \n"+
+                        $"You have signed up for \n" +
+                        $"{details.EventName}\n" +
+                        $"on {details.EventDate} \n" +
+                        $"\n" +
+                        $"Enjoy!\n" +
+                        $"Happnin\n" 
+                        
                        //somekind of confirm button here
             };
 
