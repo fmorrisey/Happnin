@@ -81,10 +81,6 @@ namespace Event_App.Controllers
         // GET: Event/Create
         public IActionResult Create()
         {
-            // CreateEventViewModel createEvent = new CreateEventViewModel();
-            ///// var interestList = new SelectList(_context.Interest.ToList(),"ID","InterestId");
-            // createEvent.Interest = interestList; //_context.Interest.ToList();// interestList;
-
             CreateEventViewModel createEvent = new CreateEventViewModel();
 
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -124,8 +120,6 @@ namespace Event_App.Controllers
             _context.Update(venue);
             _context.SaveChanges();
 
-            _context.SaveChanges();
-
             newEvent.AddressId = venue.AddressId;
             newEvent.PersonId = person.PersonId;
 
@@ -136,9 +130,6 @@ namespace Event_App.Controllers
 
         }
 
-
-
-
         // GET: Event/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -147,7 +138,7 @@ namespace Event_App.Controllers
             
             if (id == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Index));
             }
 
             var eventContext = await _context.Event
@@ -183,12 +174,13 @@ namespace Event_App.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Event editEvent, Address address)
         {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var person = _context.Person.Where(person => person.IdentityUserId == userId).SingleOrDefault();
+            
             if (id != editEvent.EventId)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Index));
             }
-
-            
 
             if (ModelState.IsValid)
             {
@@ -203,6 +195,7 @@ namespace Event_App.Controllers
                     editEvent.AddressId = address.AddressId;
 
                     _context.Update(address);
+                    _context.SaveChanges();
                     _context.Update(editEvent);
                     _context.SaveChanges();
 
